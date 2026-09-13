@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yourahc.com.au/sitemap.xml
