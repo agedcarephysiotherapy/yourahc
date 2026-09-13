@@ -1,18 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const menuButton = document.querySelector('.mobile-menu-button');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      menuButton.textContent = open ? '×' : '☰';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open navigation menu');
+        menuButton.textContent = '☰';
+      });
+    });
+  }
+
   const form = document.getElementById('enquiryForm');
   if (!form) return;
 
+  // The enquiry form intentionally remains an email hand-off until a server-side
+  // mail service is configured. Keep validation and accessibility client-side.
   form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const data = new FormData(form);
-    const name = data.get('name');
-    const email = data.get('email');
-    const phone = data.get('phone');
-    const message = data.get('message');
-    const subject = encodeURIComponent(`Your AHC enquiry from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\n\nEnquiry:\n${message}`);
-
-    // Replace this address with the final Your AHC enquiry email before launch.
-    window.location.href = `mailto:hello@yourahc.com.au?subject=${subject}&body=${body}`;
+    const email = form.querySelector('#email');
+    if (email && !email.checkValidity()) {
+      event.preventDefault();
+      email.focus();
+    }
   });
 });
