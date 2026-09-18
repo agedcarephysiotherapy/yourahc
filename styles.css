@@ -92,3 +92,32 @@ button,input,textarea{font:inherit}
 .request-form .form-status{grid-column:1/-1;margin-top:-5px}
 @media(max-width:900px){.request-form{padding:30px!important}.form-heading{align-items:flex-start;gap:5px;flex-direction:column}}
 @media(max-width:600px){.request-form{padding:24px 18px!important;gap:16px!important}.form-heading{padding-bottom:8px}.request-form .field-full{grid-column:1}.request-form input,.request-form select,.request-form textarea{min-height:50px;font-size:16px!important}.request-form textarea{min-height:120px}.request-form .consent{font-size:12px}.request-form .submit-button{min-height:52px}}
+
+/* Condition pages */
+.condition-hero{min-height:520px;background:linear-gradient(115deg,#0b3d39 0%,#176b63 60%,#2c7d73 100%);color:white;display:flex;align-items:center;position:relative;overflow:hidden}
+.condition-hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:-120px;top:-120px;box-shadow:0 0 0 80px rgba(255,255,255,.025),0 0 0 160px rgba(255,255,255,.02)}
+.condition-hero-inner{max-width:1240px;width:100%;margin:auto;padding:90px 30px;position:relative;z-index:1}
+.condition-hero h1{font:800 clamp(48px,6vw,78px)/1.02 Manrope;letter-spacing:-3px;max-width:850px;margin:18px 0 24px}
+.condition-hero h1 em{font-style:normal;color:#f2a579}
+.condition-hero p{max-width:760px;font-size:19px;line-height:1.65;color:#d9eae6;margin:0 0 30px}
+.condition-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:8px 15px;font:800 11px Manrope;letter-spacing:1.5px;color:#fff;background:rgba(255,255,255,.07)}
+.condition-content{padding-top:90px;padding-bottom:90px}
+.condition-intro{max-width:800px;margin-bottom:45px}
+.condition-intro h2{font:800 clamp(40px,5vw,62px)/1.04 Manrope;letter-spacing:-2.5px;margin:0 0 22px}
+.condition-intro h2 span{color:var(--orange)}
+.condition-intro p{font-size:17px;color:var(--muted)}
+.condition-columns{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.condition-card{background:#edf4f0;border-radius:20px;padding:38px 40px}
+.condition-card.goals-card{background:#f5eee2}
+.condition-card ul{list-style:none;padding:0;margin:0}
+.condition-card li{padding:12px 0;border-bottom:1px solid rgba(23,48,47,.1);font-size:15px}
+.condition-card li:last-child{border-bottom:0}
+.condition-card li:before{content:'✓';color:var(--teal);font-weight:800;margin-right:10px}
+.condition-cta{background:#0f302e;color:white}
+.condition-cta>.section-shell{display:flex;align-items:center;justify-content:space-between;gap:60px}
+.condition-cta h2{font:800 clamp(38px,4.5vw,58px)/1.04 Manrope;letter-spacing:-2px;margin:0 0 18px;max-width:760px}
+.condition-cta h2 span{color:#f2a579}
+.condition-cta p{color:#c9ded9;font-size:16px;max-width:760px;margin:0}
+.condition-cta .button{flex:0 0 auto}
+@media(max-width:900px){.condition-hero{min-height:480px}.condition-hero-inner{padding:75px 24px}.condition-columns{grid-template-columns:1fr}.condition-cta>.section-shell{display:grid;gap:30px}}
+@media(max-width:600px){.condition-hero{min-height:500px}.condition-hero-inner{padding:70px 20px}.condition-hero h1{font-size:45px;letter-spacing:-2px}.condition-hero p{font-size:16px}.condition-content{padding-top:55px;padding-bottom:55px}.condition-intro h2{font-size:38px}.condition-card{padding:28px 22px;border-radius:18px}.condition-card li{font-size:14px}.condition-cta h2{font-size:36px}.condition-cta>.section-shell{padding-top:55px;padding-bottom:55px}}
