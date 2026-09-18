@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#176b63">
+<meta name="description" content="Play the Your AHC dart game. Enter your Your AHC game code and take your shot.">
+<title>Your AHC Dart Game | Take Your Shot</title>
+<link rel="icon" href="/images/circle%20YAHC%20logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="dart.css">
+</head>
+<body class="dart-page">
+<header class="site-header">
+<a class="brand" href="/" aria-label="Your Allied Health Care home"><img class="brand-logo" src="/images/circle%20YAHC%20logo.png" alt="Your Allied Health Care logo"><span><strong>Your AHC</strong><small>Allied Health Care</small></span></a>
+<nav class="desktop-nav"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Dart game</a></nav>
+<a class="button button-small" href="/">Your AHC</a><button class="mobile-menu-button" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+<nav class="mobile-menu"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Dart game</a></nav>
+</header>
+<main>
+<section class="dart-hero"><div class="dart-hero-inner"><div class="section-label light">YOUR AHC DART GAME</div><h1>Take your shot.<br><span>Hit the bull.</span></h1><div class="dart-icons" aria-hidden="true"><span>🎯</span><span>🇦🇺</span><span>🦘</span><span>🎉</span></div><p>A quick game of skill. Enter your Your AHC code, aim at the board and throw your dart.</p></div></section>
+<section class="dart-shell">
+<div id="gate" class="dart-card gate-card">
+<div class="dart-kicker">READY TO THROW?</div><h2>Enter your game code</h2><p>Use any valid Your AHC code from <strong>YHC001</strong> to <strong>YHC9999</strong>.</p>
+<form id="gateForm" class="passcode-form"><input id="passcode" inputmode="text" autocomplete="off" maxlength="7" aria-label="Dart game code" placeholder="YHC001" required><button class="button" type="submit">Enter game →</button></form>
+<div id="gateMessage" class="dart-message" role="status" aria-live="polite"></div>
+</div>
+<div id="game" class="dart-card game-card" hidden>
+<div class="game-top"><div><span class="dart-kicker">TAKE YOUR SHOT</span><span id="scorePill" class="score-pill">0 points</span></div><button id="quitButton" class="text-button" type="button">Exit</button></div>
+<div class="dart-instructions"><strong>Aim:</strong> Tap anywhere on the dartboard. Then press <strong>THROW DART</strong>.</div>
+<div class="board-stage">
+<div class="throw-line"></div>
+<div id="dartboard" class="dartboard" role="application" aria-label="Interactive dartboard">
+<div class="board-number n20">20</div><div class="board-number n1">1</div><div class="board-number n18">18</div><div class="board-number n4">4</div><div class="board-number n13">13</div><div class="board-number n6">6</div><div class="board-number n10">10</div><div class="board-number n15">15</div><div class="board-number n2">2</div><div class="board-number n17">17</div><div class="board-number n3">3</div><div class="board-number n19">19</div><div class="board-number n7">7</div><div class="board-number n16">16</div><div class="board-number n8">8</div><div class="board-number n11">11</div><div class="board-number n14">14</div><div class="board-number n9">9</div><div class="board-number n12">12</div><div class="board-number n5">5</div>
+<div class="ring ring-double"></div><div class="ring ring-triple"></div><div class="ring ring-bull-outer"></div><div class="bull"></div>
+<div id="aim" class="aim" hidden></div><div id="dart" class="dart" aria-hidden="true">➤</div>
+</div>
+<div class="throw-zone"><div id="readyText">Tap the board to choose your target.</div><button id="throwButton" class="button" type="button" disabled>Throw dart 🎯</button></div>
+</div>
+<div id="result" class="dart-result" role="status" aria-live="polite"></div>
+<div id="resultActions" class="result-actions" hidden><button id="playAgain" class="button" type="button">Play again</button><a class="finish-link" href="/">Back to Your AHC</a></div>
+</div>
+</section>
+</main>
+<script src="/dart.js" defer></script><script src="/script.js" defer></script>
+</body></html>
