@@ -46,15 +46,19 @@
 <section class="section-shell photo-band"><img src="https://unsplash.com/photos/bSXk1lOp8T0/download?force=true&w=1600" alt="Older people living active lives with support" loading="lazy"><div class="photo-message"><div class="section-label">THE GOAL</div><h2>Helping people do more of <span>what matters to them.</span></h2></div></section>
 
 <section id="request" class="request-section"><div class="section-shell request-grid"><div class="request-intro"><div class="section-label light">REQUEST A SERVICE</div><h2>Tell us what <span>you need.</span></h2><p>Scan the QR code, choose the service you are looking for and leave your contact details. Our team will contact you to discuss the next step.</p><div class="request-badges"><span>NDIS</span><span>Support at Home</span><span>Private</span></div><p class="small-note">A phone number is required so we can contact you. Email is optional.</p></div>
-<form id="serviceRequestForm" class="request-form" novalidate><input type="hidden" name="startedAt"><input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off">
-<label>What service do you need? <select name="service" required><option value="">Please select</option><option>Physiotherapy</option><option>Occupational Therapy</option></select></label>
-<label>Your name <input name="name" type="text" autocomplete="name" required></label>
-<label>Contact number <input name="phone" type="tel" autocomplete="tel" required></label>
-<label>Email <span class="optional">optional</span><input name="email" type="email" autocomplete="email"></label>
-<label>Funding <select name="funding" required><option value="">Please select</option><option>NDIS</option><option>Support at Home (SAH)</option><option>Private</option></select></label>
-<label>Anything else you'd like us to know? <textarea name="message" rows="4" placeholder="Optional"></textarea></label>
+<form id="serviceRequestForm" class="request-form" novalidate>
+<input type="hidden" name="startedAt">
+<input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off">
+<div class="form-heading"><span>YOUR DETAILS</span><small>It only takes a minute.</small></div>
+<label class="field field-full"><span>Service <b>*</b></span><select name="service" required><option value="" disabled selected>Choose a service</option><option>Physiotherapy</option><option>Occupational Therapy</option></select></label>
+<label class="field"><span>Your name <b>*</b></span><input name="name" type="text" autocomplete="name" placeholder="Full name" required></label>
+<label class="field"><span>Contact number <b>*</b></span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="04XX XXX XXX" required></label>
+<label class="field"><span>Email <small>optional</small></span><input name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com"></label>
+<label class="field"><span>Funding <b>*</b></span><select name="funding" required><option value="" disabled selected>Choose funding</option><option>NDIS</option><option>Support at Home (SAH)</option><option>Private</option></select></label>
+<label class="field field-full"><span>How can we help? <small>optional</small></span><textarea name="message" rows="4" placeholder="Tell us briefly what you need or anything you'd like us to know"></textarea></label>
 <label class="consent"><input type="checkbox" name="consent" required><span>I agree that Your AHC may use these details to contact me about the service requested.</span></label>
-<button class="button button-light submit-button" type="submit">Request a service</button><div class="form-status" role="status" aria-live="polite"></div>
+<button class="button button-light submit-button" type="submit">Request a service <span aria-hidden="true">→</span></button>
+<div class="form-status" role="status" aria-live="polite"></div>
 </form></div></section>
 </main>
 
