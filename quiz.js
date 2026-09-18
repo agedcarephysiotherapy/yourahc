@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded',()=>{const PASS=/^YHC(?:[0-9]{3}|[1
 ['Which is the largest living species of sea turtle?',['Green sea turtle','Loggerhead turtle','Leatherback turtle','Hawksbill turtle'],2,'Nature'],
 ['Which Australian bird is flightless and is the tallest native bird species?',['Kookaburra','Emu','Magpie','Cockatoo'],1,'Nature'],
 ['Which Australian mammal is famous for laying eggs?',['Kangaroo','Platypus','Wombat','Dingo'],1,'Nature'],
-['Which Australian animal is known for building dams?',['Platypus','Echidna','Beaver','Wombat'],0,'Nature'],
+['Which Australian animal is known for digging extensive burrows?',['Wombat','Koala','Emu','Kookaburra'],0,'Nature'],
 ['What is the name of the natural satellite that orbits Earth?',['Mars','The Moon','Venus','Titan'],1,'Nature'],
 ['Which layer of Earth is the outermost solid layer?',['Core','Mantle','Crust','Inner core'],2,'Nature'],
 ['Which gas makes up the largest proportion of Earth’s atmosphere?',['Oxygen','Nitrogen','Carbon dioxide','Hydrogen'],1,'Nature'],
