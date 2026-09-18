@@ -16,7 +16,8 @@
 a{color:inherit;text-decoration:none}button{font:inherit}
 .site-header{height:78px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;gap:25px;position:sticky;top:0;z-index:10;background:rgba(255,253,248,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(216,225,220,.8)}
 .brand{display:flex;align-items:center;gap:10px;font-family:Manrope,sans-serif;font-size:20px;line-height:1.05}.brand strong{font-weight:800}.brand small{display:block;font:500 9px 'DM Sans';letter-spacing:1.7px;text-transform:uppercase;color:var(--muted);margin-top:4px}.brand-logo{width:54px;height:54px;object-fit:contain}
-.header-link{font-size:13px;font-weight:800;color:var(--teal)}
+.header-actions{display:flex;align-items:center;gap:12px}.header-link,.fullscreen-button{font-size:13px;font-weight:800;color:var(--teal)}
+.fullscreen-button{border:1px solid #b8d1cb;background:#fff;border-radius:10px;padding:9px 13px;cursor:pointer}.fullscreen-button:hover{background:#eaf4f0}
 .game-hero{background:linear-gradient(135deg,#0f4f49,#17302f);color:white;padding:58px 22px 50px;text-align:center}
 .eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#b6ddd5;margin-bottom:14px}
 .game-hero h1{font:800 clamp(42px,7vw,76px)/1 Manrope;letter-spacing:-3px;margin:0}.game-hero h1 span{color:#f2a579}
@@ -48,15 +49,53 @@ a{color:inherit;text-decoration:none}button{font:inherit}
 .result-time{font:800 20px Manrope;color:var(--ink);margin-top:8px}
 .rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}.rule{padding:17px;background:#f7f5ef;border-radius:14px;text-align:center}.rule strong{display:block;font:800 15px Manrope}.rule span{font-size:12px;color:var(--muted)}
 .back{text-align:center;margin-top:28px;font-size:13px;font-weight:800;color:var(--teal)}
-@media(max-width:600px){.timer{font-size:clamp(68px,18vw,104px);letter-spacing:1px}.site-header{height:68px;padding:0 16px}.brand-logo{width:44px;height:44px}.brand{font-size:17px}.game-hero{padding:45px 18px 38px}.game-hero h1{letter-spacing:-2px}.game-hero p{font-size:16px}.game-wrap{padding:24px 14px 50px}.game-card{padding:22px 16px;border-radius:18px}.modes{gap:7px}.mode{padding:14px 6px}.mode strong{font-size:15px}.mode small{font-size:10px}.timer-panel{padding:26px 10px 22px}.timer{letter-spacing:-4px}.stop-button{min-height:78px;font-size:21px}.rules{grid-template-columns:1fr}.rule{padding:13px}}
+.fullscreen-brand{display:none}
+body.game-fullscreen{background:#061514}
+body.game-fullscreen .site-header,body.game-fullscreen .game-hero,body.game-fullscreen .back{display:none}
+body.game-fullscreen .fullscreen-brand{display:flex;position:fixed;top:0;left:0;right:0;height:74px;padding:10px 24px;align-items:center;justify-content:space-between;z-index:100;color:white;background:rgba(4,18,17,.9);border-bottom:1px solid rgba(154,219,207,.18);backdrop-filter:blur(12px)}
+.fullscreen-brand-left{display:flex;align-items:center;gap:10px}.fullscreen-logo{width:48px;height:48px;object-fit:contain}.fullscreen-brand-name{font:800 18px Manrope;line-height:1}.fullscreen-brand-name span{display:block;font:600 9px 'DM Sans';letter-spacing:2px;color:#8bb9b1;margin-top:4px}
+.fullscreen-brand-right{font:800 11px 'DM Sans';letter-spacing:1.5px;color:#b6ddd5}
+body.game-fullscreen .game-wrap{width:min(100vw,1100px);max-width:none;min-height:100vh;padding:100px 28px 70px;display:flex;align-items:center;justify-content:center}
+body.game-fullscreen .game-card{width:min(900px,100%);box-shadow:none;background:transparent;border:0;padding:0}
+body.game-fullscreen .mode-label{color:#8bb9b1}
+body.game-fullscreen .mode{background:#102725;color:white;border-color:#285d57}
+body.game-fullscreen .mode small{color:#8bb9b1}
+body.game-fullscreen .mode[aria-pressed="true"]{background:#173b38;border-color:#75cfc0}
+body.game-fullscreen .timer-panel{padding:44px 20px 38px;box-shadow:inset 0 0 70px rgba(0,0,0,.35),0 20px 70px rgba(0,0,0,.4)}
+body.game-fullscreen .timer{font-size:clamp(100px,17vw,190px);margin:20px 0}
+body.game-fullscreen .rules{margin-top:22px}
+body.game-fullscreen .rule{background:#102725;color:white;border:1px solid #285d57}
+body.game-fullscreen .rule span{color:#8bb9b1}
+body.game-fullscreen .instructions{color:#a9c8c3}
+.fullscreen-exit{border:1px solid #3b6862;background:transparent;color:white;border-radius:9px;padding:8px 12px;font-weight:800;cursor:pointer}
+.fullscreen-footer{display:none}
+body.game-fullscreen .fullscreen-footer{display:block;position:fixed;bottom:12px;left:0;right:0;text-align:center;color:#648b85;font:700 9px 'DM Sans';letter-spacing:2.5px;z-index:100}
+@media(max-width:600px){
+.site-header{height:68px;padding:0 16px}.brand-logo{width:44px;height:44px}.brand{font-size:17px}.header-link{display:none}.header-actions{gap:6px}
+.fullscreen-button{padding:8px 10px;font-size:11px}
+.game-hero{padding:45px 18px 38px}.game-hero h1{letter-spacing:-2px}.game-hero p{font-size:16px}.game-wrap{padding:24px 14px 50px}.game-card{padding:22px 16px;border-radius:18px}.modes{gap:7px}.mode{padding:14px 6px}.mode strong{font-size:15px}.mode small{font-size:10px}.timer-panel{padding:26px 10px 22px}.timer{font-size:clamp(68px,18vw,104px);letter-spacing:-4px}.stop-button{min-height:78px;font-size:21px}.rules{grid-template-columns:1fr}.rule{padding:13px}
+body.game-fullscreen .fullscreen-brand{height:64px;padding:8px 12px}.fullscreen-logo{width:40px;height:40px}.fullscreen-brand-name{font-size:15px}.fullscreen-brand-right{display:none}
+body.game-fullscreen .game-wrap{padding:82px 10px 54px;min-height:100vh}body.game-fullscreen .game-card{padding:0 4px}
+body.game-fullscreen .modes{margin-bottom:16px}body.game-fullscreen .timer-panel{padding:24px 6px 20px}body.game-fullscreen .timer{font-size:clamp(74px,22vw,130px);letter-spacing:-4px;margin:15px 0}
+body.game-fullscreen .rules{margin-top:14px}.fullscreen-footer{font-size:7px!important}
+}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
 <header class="site-header">
 <a class="brand" href="/" aria-label="Your Allied Health Care home"><img class="brand-logo" src="/images/circle%20YAHC%20logo.png" alt="Your Allied Health Care logo"><span><strong>Your AHC</strong><small>Allied Health Care</small></span></a>
+<div class="header-actions">
 <a class="header-link" href="/">Back to Your AHC</a>
+<button id="fullscreen" class="fullscreen-button" type="button">⛶ FULL SCREEN</button>
+</div>
 </header>
+
+<div class="fullscreen-brand" aria-hidden="true">
+<div class="fullscreen-brand-left"><img class="fullscreen-logo" src="/images/circle%20YAHC%20logo.png" alt="Your Allied Health Care"><div class="fullscreen-brand-name">Your AHC<span>ALLIED HEALTH CARE</span></div></div>
+<div class="fullscreen-brand-right">REACTION TIME • EXHIBITION CHALLENGE</div>
+<button id="exitFullscreen" class="fullscreen-exit" type="button">EXIT FULL SCREEN</button>
+</div>
 
 <main>
 <section class="game-hero">
@@ -101,6 +140,8 @@ a{color:inherit;text-decoration:none}button{font:inherit}
 </section>
 </main>
 
+<div class="fullscreen-footer">YOUR AHC • YOUR HEALTH • YOUR COMMUNITY</div>
+
 <script>
 (() => {
   const timerEl=document.getElementById('timer');
@@ -114,24 +155,19 @@ a{color:inherit;text-decoration:none}button{font:inherit}
   const resultText=document.getElementById('resultText');
   const resultTime=document.getElementById('resultTime');
   const instructions=document.getElementById('instructions');
+  const fullscreenBtn=document.getElementById('fullscreen');
+  const exitFullscreenBtn=document.getElementById('exitFullscreen');
   const modeButtons=[...document.querySelectorAll('.mode')];
 
   const speeds={red:1.45,yellow:1.0,green:0.78};
   let mode='yellow',running=false,startTime=0,raf=0,elapsed=0;
 
-  function displaySeconds(value){
-    return Math.min(12,Math.max(0,value)).toFixed(2);
-  }
+  function displaySeconds(value){return Math.min(12,Math.max(0,value)).toFixed(2)}
 
   function draw(){
     if(!running)return;
     elapsed=(performance.now()-startTime)/1000*speeds[mode];
-    if(elapsed>=12){
-      elapsed=12;
-      timerEl.textContent='12.00';
-      finish(false,'Time is up. You went past 10.00.');
-      return;
-    }
+    if(elapsed>=12){elapsed=12;timerEl.textContent='12.00';finish(false,'Time is up. You went past 10.00.');return}
     timerEl.textContent=displaySeconds(elapsed);timerEl.classList.add('running');
     raf=requestAnimationFrame(draw);
   }
@@ -145,59 +181,55 @@ a{color:inherit;text-decoration:none}button{font:inherit}
   }
 
   function start(){
-    cancelAnimationFrame(raf);
-    result.className='result';
-    running=true;
-    elapsed=0;
-    timerEl.textContent='0.00';
-    startArea.style.display='none';
-    stopArea.style.display='flex';
-    modeButtons.forEach(b=>b.disabled=true);
+    cancelAnimationFrame(raf);result.className='result';running=true;elapsed=0;timerEl.textContent='0.00';
+    startArea.style.display='none';stopArea.style.display='flex';modeButtons.forEach(b=>b.disabled=true);
     instructions.textContent='Watch the timer and tap STOP when it shows 10.00.';
-    startTime=performance.now();
-    raf=requestAnimationFrame(draw);
+    startTime=performance.now();raf=requestAnimationFrame(draw);
   }
 
   function finish(win,message){
-    running=false;
-    timerEl.classList.remove('running');
-    cancelAnimationFrame(raf);
-    startArea.style.display='none';
-    stopArea.style.display='none';
-    modeButtons.forEach(b=>b.disabled=false);
-    const shown=displaySeconds(elapsed);
-    timerEl.textContent=shown;
-    result.className='result show '+(win?'win':'lose');
-    resultTitle.textContent=win?'🎉 YOU WIN!':'So close!';
-    resultText.textContent=message;
-    resultTime.textContent='Your time: '+shown;
+    running=false;timerEl.classList.remove('running');cancelAnimationFrame(raf);
+    startArea.style.display='none';stopArea.style.display='none';modeButtons.forEach(b=>b.disabled=false);
+    const shown=displaySeconds(elapsed);timerEl.textContent=shown;
+    result.className='result show '+(win?'win':'lose');resultTitle.textContent=win?'🎉 YOU WIN!':'So close!';
+    resultText.textContent=message;resultTime.textContent='Your time: '+shown;
     instructions.textContent=win?'Perfect timing. Show the team to claim your goodie!':'Have another go. The trick is to stop exactly at 10.00.';
   }
 
   function stop(){
     if(!running)return;
-    // Judge the displayed hundredth: 10.00 is the winning result.
     const rounded=Number(elapsed.toFixed(2));
     finish(rounded===10.00,rounded<10?'You stopped too early.':rounded>10?'You stopped too late.':'Perfect!');
   }
 
   function reset(){
-    cancelAnimationFrame(raf);
-    running=false;
-    elapsed=0;
-    timerEl.textContent='0.00';
-    timerEl.classList.remove('running');
-    startArea.style.display='flex';
-    stopArea.style.display='none';
-    result.className='result';
-    modeButtons.forEach(b=>b.disabled=false);
+    cancelAnimationFrame(raf);running=false;elapsed=0;timerEl.textContent='0.00';timerEl.classList.remove('running');
+    startArea.style.display='flex';stopArea.style.display='none';result.className='result';modeButtons.forEach(b=>b.disabled=false);
     instructions.textContent='Press START when you are ready. Stop when the timer shows exactly 10.00.';
   }
 
+  async function enterFullscreen(){
+    try{
+      await document.documentElement.requestFullscreen();
+      document.body.classList.add('game-fullscreen');
+      fullscreenBtn.textContent='⛶ FULL SCREEN';
+    }catch(e){
+      document.body.classList.toggle('game-fullscreen');
+    }
+  }
+
+  async function exitFullscreen(){
+    if(document.fullscreenElement){await document.exitFullscreen();}
+    document.body.classList.remove('game-fullscreen');
+  }
+
+  document.addEventListener('fullscreenchange',()=>{
+    document.body.classList.toggle('game-fullscreen',!!document.fullscreenElement);
+  });
+
   modeButtons.forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
-  startBtn.addEventListener('click',start);
-  stopBtn.addEventListener('click',stop);
-  againBtn.addEventListener('click',reset);
+  startBtn.addEventListener('click',start);stopBtn.addEventListener('click',stop);againBtn.addEventListener('click',reset);
+  fullscreenBtn.addEventListener('click',enterFullscreen);exitFullscreenBtn.addEventListener('click',exitFullscreen);
   reset();
 })();
 </script>
