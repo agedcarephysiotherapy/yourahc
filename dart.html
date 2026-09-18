@@ -1,58 +1,46 @@
 <!doctype html>
-<html lang="en-AU">
-<head>
+<html lang="en-AU"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#071513">
-<meta name="description" content="Play the Your AHC dart challenge. Enter your game code and take three shots.">
-<title>Your AHC | Dart Challenge</title>
+<meta name="theme-color" content="#071513"><meta name="description" content="Play the Your AHC Spin & Win game.">
+<title>Your AHC | Spin & Win</title>
 <link rel="icon" href="/images/circle%20YAHC%20logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="dart.css">
-</head>
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="dart.css"></head>
 <body class="dart-page">
 <header class="site-header">
 <a class="brand" href="/" aria-label="Your Allied Health Care home"><img class="brand-logo" src="/images/circle%20YAHC%20logo.png" alt="Your Allied Health Care logo"><span><strong>Your AHC</strong><small>Allied Health Care</small></span></a>
-<nav class="desktop-nav"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Dart game</a></nav>
+<nav class="desktop-nav"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Spin & Win</a></nav>
 <a class="button button-small" href="/">Your AHC</a><button class="mobile-menu-button" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
-<nav class="mobile-menu"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Dart game</a></nav>
+<nav class="mobile-menu"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Spin & Win</a></nav>
 </header>
 <main>
 <section class="dart-hero"><div class="dart-hero-inner">
-<div class="section-label light">YOUR AHC • DART CHALLENGE</div>
-<h1>Take your shot.</h1>
-<p>Three darts. One score. Hit the right spot and win.</p>
-<div class="hero-stats"><span>🎯 3 THROWS</span><span>🏆 60+ TO WIN</span><span>🇦🇺 YOUR AHC</span></div>
+<div class="section-label light">YOUR AHC • EXHIBITION GAME</div>
+<h1>SPIN & WIN!</h1>
+<p>Enter your code. Give the wheel a spin. Win some goodies.</p>
+<div class="hero-stats"><span>🎡 ONE SPIN</span><span>🎁 INSTANT PRIZE</span><span>🇦🇺 HAVE FUN</span></div>
 </div></section>
 <section class="dart-shell">
 <div id="gate" class="dart-card gate-card">
 <div class="dart-kicker">READY?</div><h2>Enter your game code</h2>
 <p>Use your Your AHC code from <strong>YHC001</strong> to <strong>YHC9999</strong>.</p>
-<form id="gateForm" class="passcode-form"><input id="passcode" inputmode="text" autocomplete="off" maxlength="7" aria-label="Dart game code" placeholder="YHC001" required><button class="button" type="submit">START GAME</button></form>
+<form id="gateForm" class="passcode-form"><input id="passcode" inputmode="text" autocomplete="off" maxlength="7" aria-label="Game code" placeholder="YHC001" required><button class="button" type="submit">START</button></form>
 <div id="gateMessage" class="dart-message" role="status" aria-live="polite"></div>
 </div>
 <div id="game" class="dart-card game-card" hidden>
-<div class="scoreboard">
-<div><span class="score-label">YOUR SCORE</span><strong id="totalScore">00</strong></div>
-<div class="round-status"><span id="roundLabel">ROUND 1 OF 3</span><div id="dartPips" class="dart-pips"><i></i><i></i><i></i></div></div>
-<div class="target-score"><span>TO WIN</span><strong>60</strong></div>
+<div class="game-head"><div><span class="dart-kicker">YOUR TURN</span><h2>Spin the wheel!</h2><p>Tap the big button and see what you win.</p></div><button id="quitButton" class="text-button" type="button">Exit</button></div>
+<div class="wheel-area">
+<div class="pointer">▼</div>
+<div id="wheel" class="wheel" aria-label="Prize wheel">
+<div class="wheel-label l1">GOODIE<br>BAG</div><div class="wheel-label l2">COFFEE<br>VOUCHER</div><div class="wheel-label l3">BONUS<br>PRIZE</div><div class="wheel-label l4">STRESS<br>BALL</div>
+<div class="wheel-label l5">GOODIE<br>BAG</div><div class="wheel-label l6">TRY<br>AGAIN</div><div class="wheel-label l7">NOTEBOOK</div><div class="wheel-label l8">BONUS<br>PRIZE</div>
+<div class="wheel-centre">YAHC</div></div>
 </div>
-<div class="game-head"><div><span class="dart-kicker">AIM • TAP • THROW</span><h2 id="instruction">Choose your target</h2><p id="subInstruction">Tap the board. Your dart will fly exactly where you aim.</p></div><button id="quitButton" class="text-button" type="button">Exit</button></div>
-<div class="board-wrap">
-<div class="board-glow"></div>
-<div id="dartboard" class="dartboard" role="application" aria-label="Interactive dartboard">
-<div class="board-face">
-<div class="board-numbers" aria-hidden="true"><b>20</b><b>1</b><b>18</b><b>4</b><b>13</b><b>6</b><b>10</b><b>15</b><b>2</b><b>17</b><b>3</b><b>19</b><b>7</b><b>16</b><b>8</b><b>11</b><b>14</b><b>9</b><b>12</b><b>5</b></div>
-<div class="ring ring-double"></div><div class="ring ring-triple"></div><div class="bull-outer"></div><div class="bull"></div>
-<div id="aim" class="aim" hidden><span></span></div><div id="dart" class="dart" aria-hidden="true">◆</div>
-</div></div>
-<div id="shotResult" class="shot-result" aria-live="polite"></div>
-<div class="game-controls"><button id="throwButton" class="button throw-button" type="button" disabled>THROW DART 🎯</button></div>
-</div>
-<div id="finalResult" class="final-result" hidden></div>
+<div class="spin-controls"><button id="spinButton" class="button spin-button" type="button">SPIN NOW 🎉</button><p id="spinMessage" class="spin-message">You get one spin. Good luck!</p></div>
+<div id="prizeResult" class="prize-result" hidden></div>
 <div id="resultActions" class="result-actions" hidden><button id="playAgain" class="button" type="button">PLAY AGAIN</button><a class="finish-link" href="/">Back to Your AHC</a></div>
 </div>
-</section>
-</main>
+</section></main>
 <script src="/dart.js" defer></script><script src="/script.js" defer></script>
 </body></html>
