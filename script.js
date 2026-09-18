@@ -1,35 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const menuButton = document.querySelector('.mobile-menu-button');
-  const mobileMenu = document.querySelector('.mobile-menu');
-
-  if (menuButton && mobileMenu) {
-    menuButton.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      menuButton.setAttribute('aria-expanded', String(open));
-      menuButton.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
-      menuButton.textContent = open ? '×' : '☰';
-    });
-
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        menuButton.setAttribute('aria-expanded', 'false');
-        menuButton.setAttribute('aria-label', 'Open navigation menu');
-        menuButton.textContent = '☰';
-      });
-    });
-  }
-
-  const form = document.getElementById('enquiryForm');
-  if (!form) return;
-
-  // The enquiry form intentionally remains an email hand-off until a server-side
-  // mail service is configured. Keep validation and accessibility client-side.
-  form.addEventListener('submit', (event) => {
-    const email = form.querySelector('#email');
-    if (email && !email.checkValidity()) {
-      event.preventDefault();
-      email.focus();
-    }
-  });
-});
+document.addEventListener('DOMContentLoaded',()=>{const mb=document.querySelector('.mobile-menu-button'),mm=document.querySelector('.mobile-menu');if(mb&&mm){mb.addEventListener('click',()=>{const o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',String(o));mb.textContent=o?'×':'☰'});mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.textContent='☰'}))}
+const form=document.getElementById('serviceRequestForm');if(!form)return;const started=form.querySelector('[name="startedAt"]');if(started)started.value=Date.now();
+document.querySelectorAll('[data-service]').forEach(a=>a.addEventListener('click',()=>{const s=form.querySelector('[name="service"]');if(s)s.value=a.dataset.service}));
+form.addEventListener('submit',async e=>{e.preventDefault();const status=form.querySelector('.form-status'),button=form.querySelector('.submit-button');status.className='form-status';status.textContent='';if(!form.checkValidity()){form.reportValidity();return}button.disabled=true;button.textContent='Sending…';const data={startedAt:started?.value,website:form.querySelector('[name="website"]')?.value,service:form.service.value,name:form.name.value,phone:form.phone.value,email:form.email.value,funding:form.funding.value,message:form.message.value,consent:form.consent.checked};try{const r=await fetch('/api/service-request.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const j=await r.json();if(!r.ok||!j.ok)throw new Error(j.message||'Unable to send request.');form.reset();started.value=Date.now();status.classList.add('success');status.textContent=j.message}catch(err){status.classList.add('error');status.textContent=err.message||'Unable to send request.'}finally{button.disabled=false;button.textContent='Request a service'}})});
