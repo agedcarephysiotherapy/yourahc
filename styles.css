@@ -131,3 +131,16 @@ button,input,textarea{font:inherit}
 @media(max-width:600px){.condition-hero{min-height:500px}.condition-hero-inner{padding:70px 20px}.condition-hero h1{font-size:45px;letter-spacing:-2px}.condition-hero p{font-size:16px}.condition-content{padding-top:55px;padding-bottom:55px}.condition-intro h2{font-size:38px}.condition-card{padding:28px 22px;border-radius:18px}.condition-card li{font-size:14px}.condition-cta h2{font-size:36px}.condition-cta>.section-shell{padding-top:55px;padding-bottom:55px}}
 
 .conditions-section{padding-top:70px}.condition-link-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.condition-link-grid a{background:#edf4f0;border-radius:14px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:.2s transform,.2s box-shadow}.condition-link-grid a:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.condition-link-grid strong{font:700 17px Manrope}.condition-link-grid span{font-size:12px;color:var(--muted);text-align:right}@media(max-width:600px){.condition-link-grid{grid-template-columns:1fr}.condition-link-grid a{display:block;padding:19px 20px}.condition-link-grid span{display:block;text-align:left;margin-top:5px}}
+
+
+.ot-section{background:#f8f6f0;max-width:100%;padding-left:max(30px,calc((100vw - 1180px)/2));padding-right:max(30px,calc((100vw - 1180px)/2))}
+.ot-intro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.ot-service-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px;min-height:250px;display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow,.2s border-color}
+.ot-service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#bdd1ca}
+.ot-service-card.ot-featured{background:#e3f0eb;border-color:#c5ddd5}
+.ot-service-card .service-number{margin-bottom:5px}
+.ot-service-card h3{font:800 24px/1.15 Manrope;margin:8px 0 10px;letter-spacing:-.5px}
+.ot-service-card p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.ot-service-card a{margin-top:auto;padding-top:20px;color:var(--teal);font-size:13px;font-weight:800}
+@media(max-width:900px){.ot-section{padding-left:24px;padding-right:24px}.ot-intro-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.ot-section{padding-left:18px;padding-right:18px}.ot-intro-grid{grid-template-columns:1fr}.ot-service-card{min-height:220px;padding:26px 22px}.ot-service-card h3{font-size:22px}}
