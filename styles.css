@@ -70,6 +70,9 @@ button,input,textarea{font:inherit}
 /* Hero brand label: keep it crisp and readable over photography */
 .hero-photo .eyebrow.light { color: #fff !important; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
 .condition-eyebrow{display:inline-flex!important;align-items:center;width:max-content;color:#fff!important;background:rgba(7,30,29,.62);border:1px solid rgba(255,255,255,.38);border-radius:999px;padding:9px 15px;margin:0!important;letter-spacing:1.7px;font-weight:800;text-shadow:none;box-shadow:0 8px 24px rgba(0,0,0,.14);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+.condition-four-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.condition-four-grid .condition-card{height:100%}
+@media(max-width:900px){.condition-four-grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.condition-four-grid{grid-template-columns:1fr}}
+.condition-eyebrow{display:inline-flex!important;align-items:center;width:max-content;color:#fff!important;background:rgba(7,30,29,.62);border:1px solid rgba(255,255,255,.38);border-radius:999px;padding:9px 15px;margin:0!important;letter-spacing:1.7px;font-weight:800;text-shadow:none;box-shadow:0 8px 24px rgba(0,0,0,.14);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
 .condition-four-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .condition-four-grid .condition-card{height:100%}
 @media(max-width:900px){.condition-four-grid{grid-template-columns:1fr 1fr}}
