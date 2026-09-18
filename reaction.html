@@ -29,10 +29,14 @@ a{color:inherit;text-decoration:none}button{font:inherit}
 .mode:hover{transform:translateY(-2px)}.mode[aria-pressed="true"]{border-color:var(--teal);background:#eaf4f0}
 .mode strong{display:block;font:800 18px Manrope}.mode small{display:block;color:var(--muted);font-size:12px;margin-top:3px}.dot{width:13px;height:13px;border-radius:50%;display:block;margin:0 auto 8px;border:2px solid rgba(0,0,0,.08)}
 .red .dot{background:#d8483e}.yellow .dot{background:#e5bd35}.green .dot{background:#45a96b}
-.timer-panel{background:#f1f5f3;border-radius:20px;text-align:center;padding:32px 20px 28px}
-.timer-label{font-size:12px;font-weight:800;letter-spacing:2px;color:var(--muted)}
-.timer{font:800 clamp(76px,15vw,132px)/.95 Manrope;letter-spacing:-6px;margin:12px 0 8px;font-variant-numeric:tabular-nums;color:var(--ink)}
-.target{font-size:14px;color:var(--muted)}.target strong{color:var(--orange)}
+.timer-panel{background:radial-gradient(circle at 50% 40%,#173b38 0%,#081c1b 68%,#061514 100%);border-radius:22px;text-align:center;padding:34px 20px 30px;border:1px solid #285d57;box-shadow:inset 0 0 45px rgba(0,0,0,.28),0 18px 40px rgba(8,28,27,.18);position:relative;overflow:hidden}
+.timer-panel:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 5px);pointer-events:none}
+.timer-label{position:relative;font-size:11px;font-weight:800;letter-spacing:3px;color:#8bb9b1}
+.timer{position:relative;font-family:'Courier New',ui-monospace,monospace;font-weight:800;font-size:clamp(82px,15vw,138px);line-height:.95;letter-spacing:3px;margin:15px 0 14px;font-variant-numeric:tabular-nums;color:#e7fff9;text-shadow:0 0 8px rgba(118,255,226,.55),0 0 28px rgba(118,255,226,.28);background:linear-gradient(180deg,#f2fffc 0%,#9be9d7 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.timer.running{animation:timerPulse .9s ease-in-out infinite alternate}
+@keyframes timerPulse{from{filter:brightness(.95)}to{filter:brightness(1.16)}}
+.target{position:relative;font-size:13px;color:#a9c8c3}.target strong{color:#f5ae86;text-shadow:0 0 8px rgba(242,165,121,.28)}
+.timer-panel .controls,.timer-panel .stop-area{position:relative}
 .start-button,.stop-button,.again-button{border:0;border-radius:14px;min-height:58px;padding:14px 28px;font-weight:800;cursor:pointer}
 .start-button,.again-button{background:var(--teal);color:#fff;box-shadow:0 10px 24px rgba(23,107,99,.2)}
 .stop-button{width:min(100%,520px);min-height:86px;background:var(--orange);color:white;font:800 24px Manrope;box-shadow:0 14px 28px rgba(228,109,63,.25)}
@@ -44,7 +48,7 @@ a{color:inherit;text-decoration:none}button{font:inherit}
 .result-time{font:800 20px Manrope;color:var(--ink);margin-top:8px}
 .rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}.rule{padding:17px;background:#f7f5ef;border-radius:14px;text-align:center}.rule strong{display:block;font:800 15px Manrope}.rule span{font-size:12px;color:var(--muted)}
 .back{text-align:center;margin-top:28px;font-size:13px;font-weight:800;color:var(--teal)}
-@media(max-width:600px){.site-header{height:68px;padding:0 16px}.brand-logo{width:44px;height:44px}.brand{font-size:17px}.game-hero{padding:45px 18px 38px}.game-hero h1{letter-spacing:-2px}.game-hero p{font-size:16px}.game-wrap{padding:24px 14px 50px}.game-card{padding:22px 16px;border-radius:18px}.modes{gap:7px}.mode{padding:14px 6px}.mode strong{font-size:15px}.mode small{font-size:10px}.timer-panel{padding:26px 10px 22px}.timer{letter-spacing:-4px}.stop-button{min-height:78px;font-size:21px}.rules{grid-template-columns:1fr}.rule{padding:13px}}
+@media(max-width:600px){.timer{font-size:clamp(68px,18vw,104px);letter-spacing:1px}.site-header{height:68px;padding:0 16px}.brand-logo{width:44px;height:44px}.brand{font-size:17px}.game-hero{padding:45px 18px 38px}.game-hero h1{letter-spacing:-2px}.game-hero p{font-size:16px}.game-wrap{padding:24px 14px 50px}.game-card{padding:22px 16px;border-radius:18px}.modes{gap:7px}.mode{padding:14px 6px}.mode strong{font-size:15px}.mode small{font-size:10px}.timer-panel{padding:26px 10px 22px}.timer{letter-spacing:-4px}.stop-button{min-height:78px;font-size:21px}.rules{grid-template-columns:1fr}.rule{padding:13px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
@@ -128,7 +132,7 @@ a{color:inherit;text-decoration:none}button{font:inherit}
       finish(false,'Time is up. You went past 10.00.');
       return;
     }
-    timerEl.textContent=displaySeconds(elapsed);
+    timerEl.textContent=displaySeconds(elapsed);timerEl.classList.add('running');
     raf=requestAnimationFrame(draw);
   }
 
@@ -156,6 +160,7 @@ a{color:inherit;text-decoration:none}button{font:inherit}
 
   function finish(win,message){
     running=false;
+    timerEl.classList.remove('running');
     cancelAnimationFrame(raf);
     startArea.style.display='none';
     stopArea.style.display='none';
@@ -181,6 +186,7 @@ a{color:inherit;text-decoration:none}button{font:inherit}
     running=false;
     elapsed=0;
     timerEl.textContent='0.00';
+    timerEl.classList.remove('running');
     startArea.style.display='flex';
     stopArea.style.display='none';
     result.className='result';
