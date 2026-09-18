@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en-AU"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#071513"><meta name="description" content="Play the Your AHC Spin & Win game.">
-<title>Your AHC | Spin & Win</title>
+<meta name="theme-color" content="#071513"><meta name="description" content="Play the Your AHC Spot the Difference exhibition game.">
+<title>Your AHC | Spot the Difference</title>
 <link rel="icon" href="/images/circle%20YAHC%20logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -10,35 +10,33 @@
 <body class="dart-page">
 <header class="site-header">
 <a class="brand" href="/" aria-label="Your Allied Health Care home"><img class="brand-logo" src="/images/circle%20YAHC%20logo.png" alt="Your Allied Health Care logo"><span><strong>Your AHC</strong><small>Allied Health Care</small></span></a>
-<nav class="desktop-nav"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Spin & Win</a></nav>
+<nav class="desktop-nav"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Spot the Difference</a></nav>
 <a class="button button-small" href="/">Your AHC</a><button class="mobile-menu-button" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
-<nav class="mobile-menu"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Spin & Win</a></nav>
+<nav class="mobile-menu"><a href="/">Home</a><a href="/#services">Services</a><a href="/#request">Contact</a><a href="/quiz.html">Quiz</a><a href="/dart.html">Spot the Difference</a></nav>
 </header>
 <main>
 <section class="dart-hero"><div class="dart-hero-inner">
 <div class="section-label light">YOUR AHC • EXHIBITION GAME</div>
-<h1>SPIN & WIN!</h1>
-<p>Enter your code. Give the wheel a spin. Win some goodies.</p>
-<div class="hero-stats"><span>🎡 ONE SPIN</span><span>🎁 INSTANT PRIZE</span><span>🇦🇺 HAVE FUN</span></div>
+<h1>SPOT THE DIFFERENCE</h1>
+<p>Can you find all 5 differences before the clock runs out?</p>
+<div class="hero-stats"><span>👀 FIND 5</span><span>⏱️ 45 SECONDS</span><span>🎁 WIN A GOODIE</span></div>
 </div></section>
 <section class="dart-shell">
 <div id="gate" class="dart-card gate-card">
-<div class="dart-kicker">READY?</div><h2>Enter your game code</h2>
+<div class="dart-kicker">READY TO PLAY?</div><h2>Enter your game code</h2>
 <p>Use your Your AHC code from <strong>YHC001</strong> to <strong>YHC9999</strong>.</p>
 <form id="gateForm" class="passcode-form"><input id="passcode" inputmode="text" autocomplete="off" maxlength="7" aria-label="Game code" placeholder="YHC001" required><button class="button" type="submit">START</button></form>
 <div id="gateMessage" class="dart-message" role="status" aria-live="polite"></div>
 </div>
 <div id="game" class="dart-card game-card" hidden>
-<div class="game-head"><div><span class="dart-kicker">YOUR TURN</span><h2>Spin the wheel!</h2><p>Tap the big button and see what you win.</p></div><button id="quitButton" class="text-button" type="button">Exit</button></div>
-<div class="wheel-area">
-<div class="pointer">▼</div>
-<div id="wheel" class="wheel" aria-label="Prize wheel">
-<div class="wheel-label l1">GOODIE<br>BAG</div><div class="wheel-label l2">COFFEE<br>VOUCHER</div><div class="wheel-label l3">BONUS<br>PRIZE</div><div class="wheel-label l4">STRESS<br>BALL</div>
-<div class="wheel-label l5">GOODIE<br>BAG</div><div class="wheel-label l6">TRY<br>AGAIN</div><div class="wheel-label l7">NOTEBOOK</div><div class="wheel-label l8">BONUS<br>PRIZE</div>
-<div class="wheel-centre">YAHC</div></div>
+<div class="game-head"><div><span class="dart-kicker">LOOK CAREFULLY</span><h2>Find 5 differences</h2><p>Tap a difference on either picture. No penalty for wrong taps.</p></div><div class="game-timer"><span>TIME</span><strong id="timer">45</strong></div></div>
+<div class="difference-status"><strong id="foundCount">0</strong><span>/ 5 found</span></div>
+<div class="picture-grid">
+<div class="picture-panel"><div class="picture-title">A</div><canvas id="sceneA" width="900" height="540" aria-label="Picture A"></canvas></div>
+<div class="picture-panel"><div class="picture-title">B</div><canvas id="sceneB" width="900" height="540" aria-label="Picture B"></canvas></div>
 </div>
-<div class="spin-controls"><button id="spinButton" class="button spin-button" type="button">SPIN NOW 🎉</button><p id="spinMessage" class="spin-message">You get one spin. Good luck!</p></div>
-<div id="prizeResult" class="prize-result" hidden></div>
+<div class="game-tip">👆 Tap the area where you see a difference.</div>
+<div id="gameMessage" class="game-message" role="status" aria-live="polite"></div>
 <div id="resultActions" class="result-actions" hidden><button id="playAgain" class="button" type="button">PLAY AGAIN</button><a class="finish-link" href="/">Back to Your AHC</a></div>
 </div>
 </section></main>
