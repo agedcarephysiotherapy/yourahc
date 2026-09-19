@@ -144,3 +144,98 @@ button,input,textarea{font:inherit}
 .ot-service-card a{margin-top:auto;padding-top:20px;color:var(--teal);font-size:13px;font-weight:800}
 @media(max-width:900px){.ot-section{padding-left:24px;padding-right:24px}.ot-intro-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.ot-section{padding-left:18px;padding-right:18px}.ot-intro-grid{grid-template-columns:1fr}.ot-service-card{min-height:220px;padding:26px 22px}.ot-service-card h3{font-size:22px}}
+
+
+/* Responsive rendering pass
+   Layout/content/images unchanged. This only improves sizing, wrapping and touch behaviour
+   on phones and tablets. */
+img,video,svg{max-width:100%}
+img{height:auto}
+iframe{max-width:100%}
+body{overflow-x:hidden}
+.site-header{padding-left:max(16px,5vw);padding-right:max(16px,5vw)}
+.hero-content,.request-form,.service-copy,.condition-card,.condition-hero-inner,.photo-message{min-width:0}
+.service-copy li,.condition-link-grid strong,.ot-service-card h3,.request-form label,.request-form .consent{overflow-wrap:anywhere}
+
+@media (min-width:601px) and (max-width:1100px){
+  .site-header{gap:16px}
+  .desktop-nav{gap:16px;font-size:13px}
+  .section-shell{padding-left:24px;padding-right:24px}
+  .hero-photo{min-height:calc(100svh - 78px)}
+  .hero-content{padding:80px 6vw 60px;max-width:760px}
+  .hero-content h1{font-size:clamp(52px,7vw,76px)}
+  .hero-content>p{font-size:19px;max-width:600px}
+  .intro{grid-template-columns:.95fr 1.05fr;gap:42px}
+  .intro-image{height:auto;aspect-ratio:4/3}
+  .service-feature{min-height:0}
+  .service-photo{min-height:0;aspect-ratio:4/3}
+  .service-photo img{min-height:0;height:100%;object-fit:cover}
+  .service-copy{padding:38px}
+  .service-copy h3{font-size:36px}
+  .why-grid{gap:50px}
+  .request-grid{gap:45px}
+  .request-form{padding:30px!important}
+  .photo-band{height:auto;aspect-ratio:16/8}
+  .photo-band img{height:100%;object-fit:cover}
+}
+
+@media (max-width:900px){
+  /* Prevent flex/grid children from forcing horizontal overflow. */
+  .section-heading>div,.section-heading>p,.request-intro,.request-form,
+  .service-copy,.why-grid>div,.condition-hero-inner{min-width:0}
+  .section-heading h2,.intro h2,.services h2,.why-grid h2,.photo-message h2,
+  .request-intro h2,.condition-intro h2,.condition-hero h1{overflow-wrap:normal;word-break:normal}
+  .hero-actions{flex-wrap:wrap}
+  .hero-actions .button{max-width:100%}
+  .request-form input,.request-form select,.request-form textarea{max-width:100%}
+}
+
+@media (max-width:600px){
+  /* Mobile header/nav */
+  .site-header{width:100%;max-width:100%;gap:10px}
+  .brand{min-width:0}
+  .brand>span{min-width:0}
+  .brand strong,.brand small{white-space:nowrap}
+  .mobile-menu{width:100%;max-width:100vw;overflow:hidden}
+
+  /* Make photographic content responsive without changing the source images. */
+  .intro-image{height:auto;aspect-ratio:4/3;overflow:hidden}
+  .intro-image img{width:100%;height:100%;object-fit:contain;background:#edf4f0}
+  .service-photo{height:auto;aspect-ratio:4/3;overflow:hidden}
+  .service-photo img{width:100%;height:100%;min-height:0;object-fit:contain;background:#edf4f0}
+  .photo-band{height:auto;aspect-ratio:auto;min-height:0}
+  .photo-band img{display:block;width:100%;height:auto;object-fit:contain}
+  .photo-band:after{display:none}
+  .photo-message{position:absolute;left:18px;right:18px;bottom:18px;max-width:none}
+
+  /* Keep buttons and links comfortably tappable and prevent clipping. */
+  .button{min-height:48px}
+  .hero-actions{align-items:stretch}
+  .hero-actions .button{width:100%;max-width:100%}
+  .hero-link{padding:8px 0}
+  .condition-cta>.section-shell{min-width:0}
+  .condition-cta .button{width:100%}
+
+  /* Tablet-style two-column elements become clean single-column blocks. */
+  .condition-link-grid a{width:100%;min-width:0}
+  .ot-service-card{min-width:0}
+  .ot-service-card h3{overflow-wrap:anywhere}
+  .credibility>div{min-width:0}
+
+  /* Form fields must never create viewport overflow on iOS/Android. */
+  .request-form{width:100%;max-width:100%;min-width:0}
+  .request-form .field,.request-form .field>span{min-width:0}
+  .request-form input,.request-form select,.request-form textarea{width:100%;max-width:100%;box-sizing:border-box}
+}
+
+@media (max-width:380px){
+  .site-header{padding-left:12px;padding-right:12px}
+  .brand-logo{width:40px;height:40px}
+  .brand{font-size:15px}
+  .brand small{font-size:7px;letter-spacing:1.2px}
+  .mobile-menu-button{width:40px;height:40px}
+  .hero-content{padding-left:16px;padding-right:16px}
+  .section-shell{padding-left:16px;padding-right:16px}
+  .intro h2,.services h2,.why-grid h2,.photo-message h2,.request-intro h2{font-size:34px}
+  .photo-message{left:16px;right:16px;bottom:16px;padding:18px}
+}
