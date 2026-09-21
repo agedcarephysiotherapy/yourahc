@@ -249,3 +249,29 @@ button,input,textarea{font:inherit}
 .official-source a{display:block;color:var(--teal);font-weight:800;font-size:13px;padding:7px 0}
 @media(max-width:900px){.funding-info-grid{grid-template-columns:1fr}.funding-step-grid{grid-template-columns:1fr 1fr}.funding-notes{grid-template-columns:1fr}}
 @media(max-width:600px){.funding-hero{min-height:520px}.funding-hero-inner{padding:70px 20px}.funding-hero h1{font-size:45px;letter-spacing:-2px}.funding-hero p{font-size:16px}.funding-content{padding-top:55px;padding-bottom:55px}.funding-intro h2{font-size:38px}.funding-info-card{padding:28px 22px}.funding-step-grid{grid-template-columns:1fr}.funding-notes{padding-top:50px;padding-bottom:60px}.official-source{padding:24px 20px}}
+
+/* Getting the right therapy page */
+.therapy-challenges-hero{min-height:570px;background:linear-gradient(115deg,#0b3d39 0%,#176b63 68%,#2c7d73 100%);color:#fff;display:flex;align-items:center;position:relative;overflow:hidden}
+.therapy-challenges-hero:after{content:"";position:absolute;width:620px;height:620px;border:1px solid rgba(255,255,255,.11);border-radius:50%;right:-180px;top:-180px;box-shadow:0 0 0 100px rgba(255,255,255,.018),0 0 0 200px rgba(255,255,255,.012)}
+.therapy-challenges-hero-inner{max-width:1240px;width:100%;margin:auto;padding:100px 30px;position:relative;z-index:1}
+.therapy-challenges-hero h1{font:800 clamp(50px,6.2vw,82px)/1.02 Manrope;letter-spacing:-3.5px;max-width:900px;margin:18px 0 25px}
+.therapy-challenges-hero h1 em{font-style:normal;color:#f2a579}
+.therapy-challenges-hero p{max-width:780px;font-size:19px;line-height:1.65;color:#d9eae6;margin:0 0 32px}
+.therapy-challenges-intro{padding-bottom:55px}
+.therapy-challenge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;padding-top:20px;padding-bottom:105px}
+.therapy-challenge-card{background:#fff;border:1px solid #dce6e3;border-radius:20px;padding:32px;display:grid;grid-template-columns:42px 1fr;gap:18px;min-height:285px;box-shadow:0 7px 25px rgba(11,57,53,.035)}
+.therapy-challenge-card.featured{background:#e3f0eb;border-color:#c5ddd5}
+.therapy-challenge-number{font:800 11px Manrope;letter-spacing:2px;color:#e46d3f;padding-top:4px}
+.therapy-challenge-card h3{font:800 24px/1.18 Manrope;letter-spacing:-.6px;margin:0 0 12px;color:#123f3a}
+.therapy-challenge-card p{font-size:14px;line-height:1.65;color:#5a706d;margin:0 0 18px}
+.therapy-challenge-card strong{display:block;font:800 12px Manrope;letter-spacing:1.2px;text-transform:uppercase;color:#176b63;margin-bottom:7px}
+.therapy-challenge-quote{background:#0b3935;color:#fff;position:relative;overflow:hidden}
+.therapy-challenge-quote:before{content:"";position:absolute;width:500px;height:500px;border:1px solid rgba(255,255,255,.08);border-radius:50%;right:-180px;top:-180px}
+.therapy-challenge-quote>.section-shell{padding-top:95px;padding-bottom:95px;position:relative;z-index:1}
+.therapy-challenge-quote h2{font:800 clamp(44px,5.5vw,68px)/1.04 Manrope;letter-spacing:-2.5px;margin:16px 0 18px}
+.therapy-challenge-quote h2 span{color:#f2a579}
+.therapy-challenge-quote p{max-width:720px;color:#c9ded9;font-size:18px;line-height:1.65;margin:0 0 30px}
+.therapy-challenges-actions{display:flex;align-items:center;gap:25px}
+.therapy-challenges-actions .hero-link{color:#fff}
+@media(max-width:900px){.therapy-challenges-hero{min-height:520px}.therapy-challenges-hero-inner{padding:80px 24px}.therapy-challenge-grid{grid-template-columns:1fr;padding-bottom:75px}.therapy-challenge-card{min-height:0}}
+@media(max-width:600px){.therapy-challenges-hero{min-height:540px}.therapy-challenges-hero-inner{padding:70px 20px}.therapy-challenges-hero h1{font-size:45px;letter-spacing:-2px}.therapy-challenges-hero p{font-size:16px}.therapy-challenges-intro{padding-top:55px;padding-bottom:25px}.therapy-challenge-grid{padding:15px 18px 60px;gap:12px}.therapy-challenge-card{padding:25px 22px;grid-template-columns:34px 1fr;border-radius:18px}.therapy-challenge-card h3{font-size:21px}.therapy-challenge-card p{font-size:14px}.therapy-challenge-quote>.section-shell{padding-top:65px;padding-bottom:65px}.therapy-challenge-quote h2{font-size:39px}.therapy-challenge-quote p{font-size:16px}.therapy-challenges-actions{display:flex;flex-direction:column;align-items:flex-start;gap:18px}}
