@@ -171,3 +171,26 @@ button,input,textarea{font:inherit}
 .why-your-footer strong{font:800 25px Manrope;letter-spacing:-.5px}.why-your-footer span{font-size:14px;color:#c9ded9;text-align:right}.why-your-footer em{color:#f2a579;font-style:normal;font-weight:800}
 @media(max-width:900px){.why-your-inner{padding:80px 24px 70px}.why-your-heading{grid-template-columns:1fr;gap:15px;align-items:start}.why-your-word{font-size:125px;letter-spacing:-8px;margin-left:-4px}.why-your-copy h2{font-size:48px}.why-your-grid{grid-template-columns:1fr 1fr}.why-your-card-last{grid-column:1/-1}}
 @media(max-width:600px){.why-your-inner{padding:65px 18px 55px}.why-your-intro{margin-bottom:40px}.why-your-word{font-size:92px;letter-spacing:-6px;line-height:.75}.why-your-copy h2{font-size:39px;letter-spacing:-1.5px;margin-bottom:17px}.why-your-copy p{font-size:16px}.why-your-grid{grid-template-columns:1fr;gap:12px}.why-your-card,.why-your-card-last{grid-column:1;min-height:0;padding:25px 22px 27px}.why-your-icon{margin-bottom:17px}.why-your-card h3{font-size:21px}.why-your-card p{font-size:14px}.why-your-footer{margin-top:38px;display:block}.why-your-footer strong{display:block;font-size:23px;margin-bottom:7px}.why-your-footer span{display:block;text-align:left;font-size:13px}}
+
+/* Responsive image focal points: keep faces and key subjects visible across screen sizes */
+.hero-photo{background-position:center 32%}
+.intro-image img{object-position:center 32%}
+.service-photo img{object-position:center 30%}
+.photo-band img{object-position:center 32%}
+
+@media(max-width:900px){
+  .hero-photo{background-position:center 28%}
+  .intro-image img{object-position:center 28%}
+  .service-photo img{object-position:center 26%}
+  .photo-band img{object-position:center 28%}
+}
+
+@media(max-width:600px){
+  .hero-photo{background-position:center 25%}
+  .intro-image{height:340px}
+  .intro-image img{object-position:center 25%}
+  .service-photo{height:320px}
+  .service-photo img{height:320px;object-position:center 24%}
+  .photo-band{height:460px}
+  .photo-band img{object-position:center 27%}
+}
