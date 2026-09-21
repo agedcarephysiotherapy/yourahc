@@ -194,3 +194,19 @@ button,input,textarea{font:inherit}
   .photo-band{height:460px}
   .photo-band img{object-position:center 27%}
 }
+
+/* Funding pathway section */
+.funding-section{padding-top:100px;padding-bottom:105px}
+.funding-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:42px}
+.funding-card{display:flex;flex-direction:column;min-height:330px;padding:32px;border:1px solid #dce6e3;border-radius:20px;background:#fff;color:#123f3a;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.funding-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(11,57,53,.09);border-color:#b7d0ca}
+.funding-card.funding-ndis{background:#0b3935;color:#fff;border-color:#0b3935}
+.funding-number{font:800 11px Manrope;letter-spacing:2px;color:#e99a6e;margin-bottom:35px}
+.funding-card h3{font:800 31px/1.1 Manrope;letter-spacing:-1px;margin:0 0 15px}
+.funding-card p{font-size:15px;line-height:1.65;margin:0;color:#55716c}
+.funding-ndis p{color:#c9ded9}
+.funding-link{margin-top:auto;padding-top:28px;font:700 14px Manrope;color:#176b63}
+.funding-ndis .funding-link{color:#f2a579}
+.site-footer a{color:inherit;text-decoration:none}
+@media(max-width:900px){.funding-grid{grid-template-columns:1fr}.funding-card{min-height:260px}}
+@media(max-width:600px){.funding-section{padding-top:70px;padding-bottom:75px}.funding-card{padding:25px;min-height:250px}.funding-card h3{font-size:27px}}
