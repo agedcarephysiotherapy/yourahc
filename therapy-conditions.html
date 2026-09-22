@@ -30,7 +30,7 @@ h1 span{color:#f1a77e}
 @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 .progress{position:absolute;z-index:5;left:0;right:0;bottom:0;height:7px;background:rgba(255,255,255,.15)}
 .progress i{display:block;height:100%;background:#e46d3f;transform-origin:left}
-.playing .progress i{animation:go 10s linear}
+.playing .progress i{animation:go 15s linear}
 @keyframes go{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .controls{position:absolute;z-index:8;right:28px;top:24px;display:flex;gap:9px}
 .ctrl{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(7,29,27,.35);color:white;cursor:pointer;font-size:20px}
@@ -84,7 +84,7 @@ h1 span{color:#f1a77e}
 s.forEach((_,i)=>{const b=document.createElement('button');b.className='dot'+(i?'':' active');b.onclick=()=>go(i);d.appendChild(b)});
 const dots=[...d.children];
 function go(i){n=(i+s.length)%s.length;s.forEach((a,j)=>a.classList.toggle('active',j===n));dots.forEach((a,j)=>a.classList.toggle('active',j===n));restart()}
-function restart(){clearTimeout(t);if(!run)return;f.classList.remove('playing');void f.offsetWidth;f.classList.add('playing');t=setTimeout(()=>go(n+1),10000)}
+function restart(){clearTimeout(t);if(!run)return;f.classList.remove('playing');void f.offsetWidth;f.classList.add('playing');t=setTimeout(()=>go(n+1),15000)}
 document.getElementById('next').onclick=()=>go(n+1);document.getElementById('prev').onclick=()=>go(n-1);p.onclick=()=>{run=!run;p.textContent=run?'Ⅱ':'▶';if(run)restart();else{clearTimeout(t);f.classList.remove('playing')}};
 f.addEventListener('touchstart',e=>x=e.changedTouches[0].screenX,{passive:true});f.addEventListener('touchend',e=>{let dx=e.changedTouches[0].screenX-x;if(Math.abs(dx)>45)go(n+(dx<0?1:-1))},{passive:true});restart()})();
 </script>
