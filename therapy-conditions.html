@@ -8,36 +8,37 @@
 <link rel="icon" href="/images/circle%20YAHC%20logo.png">
 <link rel="stylesheet" href="/styles.css">
 <style>
-body{margin:0;background:#102725;color:#fff;font-family:'DM Sans',Arial,sans-serif;overflow:hidden}
-.page{height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 28px;box-sizing:border-box}
-.wrap{width:min(1320px,100%);position:relative}
-.frame{position:relative;width:100%;aspect-ratio:16/9;max-height:calc(100vh - 130px);overflow:hidden;border-radius:26px;background:#173b38;box-shadow:0 28px 80px #061514;isolation:isolate}
-.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease}
-.slide.active{opacity:1;visibility:visible}
-.bg{position:absolute;inset:0;background-size:cover;background-position:center}
-.bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,29,27,.94),rgba(7,29,27,.68) 45%,rgba(7,29,27,.12)),linear-gradient(0deg,rgba(7,29,27,.7),transparent 48%)}
-.content{position:absolute;z-index:2;left:0;bottom:0;width:62%;padding:clamp(26px,5vw,68px)}
-.num{font-size:11px;font-weight:800;letter-spacing:2.5px;color:#a8d9ce;text-transform:uppercase;margin-bottom:13px}
-.num i{display:inline-block;width:32px;height:2px;background:#e46d3f;margin-left:8px;vertical-align:middle}
-h1{font-family:Manrope,Arial,sans-serif;font-size:clamp(28px,4.1vw,62px);line-height:1.03;letter-spacing:-2px;margin:0 0 16px}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{background:#102725;color:#fff;font-family:'DM Sans',Arial,sans-serif}
+.page{height:100vh;width:100vw;padding:0;display:flex}
+.wrap,.frame{width:100vw;height:100vh}
+.frame{position:relative;overflow:hidden;background:#176b63;isolation:isolate}
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;opacity:0;visibility:hidden;transform:scale(.97);transition:opacity .7s ease,transform .7s ease;padding:8vh 8vw 12vh}
+.slide.active{opacity:1;visibility:visible;transform:scale(1)}
+.bg{display:none}
+.content{position:relative;z-index:2;width:min(1150px,90vw);padding:0}
+.num{font-size:clamp(13px,1.2vw,20px);font-weight:800;letter-spacing:4px;color:#b9e4dc;text-transform:uppercase;margin-bottom:24px}
+.num i{display:block;width:70px;height:4px;background:#e46d3f;margin:18px auto 0}
+h1{font-family:Manrope,Arial,sans-serif;font-size:clamp(44px,7vw,108px);line-height:1.02;letter-spacing:-4px;margin:0 auto 28px;max-width:1100px;animation:rise .8s ease both}
 h1 span{color:#f1a77e}
-.intro{font-size:clamp(13px,1.45vw,20px);line-height:1.5;max-width:600px;margin:0 0 20px;color:#f1f7f5}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:610px}
-.box{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)}
-.box strong{display:block;font-family:Manrope;font-size:12px;margin-bottom:3px}
-.box p{font-size:11px;line-height:1.4;color:#d9e9e5;margin:0}
-.progress{position:absolute;z-index:5;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.15)}
+.intro{font-size:clamp(19px,2.1vw,32px);line-height:1.4;max-width:950px;margin:0 auto 42px;color:#f1f7f5;animation:rise 1s .1s ease both}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:auto;animation:rise 1s .2s ease both}
+.box{padding:20px 24px;border-radius:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.24)}
+.box strong{display:block;font-family:Manrope;font-size:clamp(17px,1.5vw,24px);margin-bottom:7px}
+.box p{font-size:clamp(13px,1.15vw,18px);line-height:1.45;color:#d9e9e5;margin:0}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.progress{position:absolute;z-index:5;left:0;right:0;bottom:0;height:7px;background:rgba(255,255,255,.15)}
 .progress i{display:block;height:100%;background:#e46d3f;transform-origin:left}
-.playing .progress i{animation:go 3s linear}
+.playing .progress i{animation:go 10s linear}
 @keyframes go{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.controls{position:absolute;z-index:8;right:18px;top:18px;display:flex;gap:7px}
-.ctrl{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(7,29,27,.55);color:white;cursor:pointer}
-.dots{position:absolute;z-index:8;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:6px}
-.dot{width:7px;height:7px;border:0;border-radius:8px;background:rgba(255,255,255,.4);cursor:pointer;padding:0}.dot.active{width:22px;background:white}
-.corner{position:fixed;z-index:20;bottom:18px;padding:12px 17px;border-radius:999px;background:#fff;color:#17302f;font:800 11px Manrope;box-shadow:0 10px 28px rgba(0,0,0,.3)}.left{left:18px}.right{right:18px}
-@media(max-width:700px){.page{padding:75px 10px 58px}.frame{border-radius:18px}.content{width:82%;padding:20px}.num{font-size:8px;margin-bottom:7px}h1{font-size:23px;letter-spacing:-1px;margin-bottom:8px}.intro{font-size:10px;line-height:1.35;margin-bottom:9px}.box{padding:7px 8px}.box strong{font-size:9px}.box p{font-size:8px}.controls{top:10px;right:10px}.ctrl{width:34px;height:34px}.corner{bottom:9px;padding:9px 12px;font-size:9px}.dots{bottom:10px}}
-@media(max-width:480px){.cols{grid-template-columns:1fr}.box:nth-child(2){display:none}.content{width:90%;padding:16px}h1{font-size:21px}.intro{font-size:9px}}
-@media(prefers-reduced-motion:reduce){.playing .progress i{animation:none;transform:scaleX(1)}}
+.controls{position:absolute;z-index:8;right:28px;top:24px;display:flex;gap:9px}
+.ctrl{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(7,29,27,.35);color:white;cursor:pointer;font-size:20px}
+.dots{position:absolute;z-index:8;left:50%;bottom:25px;transform:translateX(-50%);display:flex;gap:8px}
+.dot{width:8px;height:8px;border:0;border-radius:8px;background:rgba(255,255,255,.4);cursor:pointer;padding:0}.dot.active{width:28px;background:white}
+.corner{position:fixed;z-index:20;bottom:22px;padding:14px 21px;border-radius:999px;background:#fff;color:#17302f;font:800 13px Manrope;box-shadow:0 10px 28px rgba(0,0,0,.3)}.left{left:22px}.right{right:22px}
+@media(max-width:700px){.slide{padding:80px 6vw 110px}h1{font-size:clamp(38px,10vw,68px);letter-spacing:-2px}.intro{font-size:clamp(16px,4vw,23px);margin-bottom:25px}.cols{grid-template-columns:1fr}.box{padding:15px}.box p{font-size:14px}.controls{right:14px;top:14px}.ctrl{width:40px;height:40px}.corner{bottom:14px;padding:11px 15px;font-size:11px}.dots{bottom:18px}}
+@media(prefers-reduced-motion:reduce){.slide{transition:none}.slide.active h1,.slide.active .intro,.slide.active .cols{animation:none}.playing .progress i{animation:none;transform:scaleX(1)}}
 </style>
 </head>
 <body>
@@ -50,25 +51,25 @@ h1 span{color:#f1a77e}
 <main class="page"><div class="wrap">
 <div class="frame playing" id="frame">
 
-<article class="slide active"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">01 • START HERE<i></i></div><h1>Therapy starts with <span>what matters to you.</span></h1><p class="intro">Physiotherapy and occupational therapy look at the person, not just the condition, and turn goals into practical steps.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Movement, strength, balance, pain, mobility and physical function.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Daily activities, independence, equipment, home and community participation.</p></div></div></div></article>
+<article class="slide active"><div class="content"><div class="num">01 • START HERE<i></i></div><h1>Therapy starts with <span>what matters to you.</span></h1><p class="intro">Physiotherapy and occupational therapy look at the person, not just the condition, and turn goals into practical steps.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Movement, strength, balance, pain, mobility and physical function.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Daily activities, independence, equipment, home and community participation.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">02 • STROKE<i></i></div><h1>After a stroke, <span>movement can be rebuilt.</span></h1><p class="intro">Rehabilitation can focus on walking, transfers, balance, arm and hand function and getting back to everyday activities.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Gait, balance, strength, transfers and physical conditioning.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Self-care, upper-limb function, cognition, equipment and daily routines.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">02 • STROKE<i></i></div><h1>After a stroke, <span>movement can be rebuilt.</span></h1><p class="intro">Rehabilitation can focus on walking, transfers, balance, arm and hand function and getting back to everyday activities.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Gait, balance, strength, transfers and physical conditioning.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Self-care, upper-limb function, cognition, equipment and daily routines.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">03 • PARKINSON'S DISEASE<i></i></div><h1>Make movement <span>safer and easier.</span></h1><p class="intro">Therapy can help people manage changes in walking, balance, transfers and everyday tasks.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Walking practice, balance, strength, mobility and exercise.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Strategies for dressing, showering, home safety, routines and equipment.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">03 • PARKINSON'S DISEASE<i></i></div><h1>Make movement <span>safer and easier.</span></h1><p class="intro">Therapy can help people manage changes in walking, balance, transfers and everyday tasks.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Walking practice, balance, strength, mobility and exercise.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Strategies for dressing, showering, home safety, routines and equipment.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">04 • MULTIPLE SCLEROSIS<i></i></div><h1>Manage fatigue while <span>staying active.</span></h1><p class="intro">A tailored approach can balance movement, energy, safety and participation in everyday life.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Strength, balance, mobility, fitness and fatigue-aware exercise.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Energy conservation, routines, equipment and practical task strategies.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">04 • MULTIPLE SCLEROSIS<i></i></div><h1>Manage fatigue while <span>staying active.</span></h1><p class="intro">A tailored approach can balance movement, energy, safety and participation in everyday life.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Strength, balance, mobility, fitness and fatigue-aware exercise.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Energy conservation, routines, equipment and practical task strategies.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">05 • ACQUIRED BRAIN INJURY<i></i></div><h1>Build function <span>into everyday life.</span></h1><p class="intro">Rehabilitation can address physical, cognitive and functional challenges after an acquired brain injury.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Mobility, balance, coordination, strength and safe transfers.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Daily living, routines, cognition, equipment and community participation.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">05 • ACQUIRED BRAIN INJURY<i></i></div><h1>Build function <span>into everyday life.</span></h1><p class="intro">Rehabilitation can address physical, cognitive and functional challenges after an acquired brain injury.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Mobility, balance, coordination, strength and safe transfers.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Daily living, routines, cognition, equipment and community participation.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">06 • CEREBRAL PALSY<i></i></div><h1>Support movement, <span>comfort and independence.</span></h1><p class="intro">Therapy can be adapted across adulthood to support physical function and participation.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Strength, mobility, gait, balance, positioning and conditioning.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Equipment, seating, self-care, home access and everyday independence.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">06 • CEREBRAL PALSY<i></i></div><h1>Support movement, <span>comfort and independence.</span></h1><p class="intro">Therapy can be adapted across adulthood to support physical function and participation.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Strength, mobility, gait, balance, positioning and conditioning.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Equipment, seating, self-care, home access and everyday independence.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1580281658628-1f0c9a5d6a5c?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">07 • SPINAL CORD INJURY<i></i></div><h1>Work towards <span>safer independence.</span></h1><p class="intro">A coordinated approach can address mobility, transfers, positioning and everyday participation.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Transfers, strength, wheelchair mobility, conditioning and movement.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Seating, equipment, personal care, home access and daily tasks.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">07 • SPINAL CORD INJURY<i></i></div><h1>Work towards <span>safer independence.</span></h1><p class="intro">A coordinated approach can address mobility, transfers, positioning and everyday participation.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Transfers, strength, wheelchair mobility, conditioning and movement.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Seating, equipment, personal care, home access and daily tasks.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1576765608866-5b51046452be?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">08 • AMPUTATION & LIMB LOSS<i></i></div><h1>Move with confidence <span>and purpose.</span></h1><p class="intro">Rehabilitation can help with mobility, balance, strength and adapting to everyday activities.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Gait, balance, strengthening, conditioning and prosthetic rehabilitation.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Daily tasks, equipment, home setup and adapting activities.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">08 • AMPUTATION & LIMB LOSS<i></i></div><h1>Move with confidence <span>and purpose.</span></h1><p class="intro">Rehabilitation can help with mobility, balance, strength and adapting to everyday activities.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Gait, balance, strengthening, conditioning and prosthetic rehabilitation.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Daily tasks, equipment, home setup and adapting activities.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">09 • CHRONIC PAIN & ARTHRITIS<i></i></div><h1>Keep doing more of <span>what matters.</span></h1><p class="intro">Therapy can help people build capacity and adapt activities around pain and function.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Exercise, mobility, strength, pacing and movement strategies.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Task modification, routines, equipment and energy-saving strategies.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">09 • CHRONIC PAIN & ARTHRITIS<i></i></div><h1>Keep doing more of <span>what matters.</span></h1><p class="intro">Therapy can help people build capacity and adapt activities around pain and function.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Exercise, mobility, strength, pacing and movement strategies.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Task modification, routines, equipment and energy-saving strategies.</p></div></div></div></article>
 
-<article class="slide"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1576765608866-5b51046452be?auto=format&fit=crop&w=1800&q=85')"></div><div class="content"><div class="num">10 • FALLS & LOSS OF FUNCTION<i></i></div><h1>Stay safer at home <span>and in the community.</span></h1><p class="intro">Physiotherapy and OT can work together to identify practical ways to improve safety and independence.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Strength, balance, gait, transfers and mobility confidence.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Home safety, equipment, routines and everyday task strategies.</p></div></div></div></article>
+<article class="slide"><div class="content"><div class="num">10 • FALLS & LOSS OF FUNCTION<i></i></div><h1>Stay safer at home <span>and in the community.</span></h1><p class="intro">Physiotherapy and OT can work together to identify practical ways to improve safety and independence.</p><div class="cols"><div class="box"><strong>Physiotherapy</strong><p>Strength, balance, gait, transfers and mobility confidence.</p></div><div class="box"><strong>Occupational Therapy</strong><p>Home safety, equipment, routines and everyday task strategies.</p></div></div></div></article>
 
 <div class="progress"><i></i></div><div class="dots" id="dots"></div>
 <div class="controls"><button class="ctrl" id="prev" aria-label="Previous">‹</button><button class="ctrl" id="pause" aria-label="Pause">Ⅱ</button><button class="ctrl" id="next" aria-label="Next">›</button></div>
@@ -83,7 +84,7 @@ h1 span{color:#f1a77e}
 s.forEach((_,i)=>{const b=document.createElement('button');b.className='dot'+(i?'':' active');b.onclick=()=>go(i);d.appendChild(b)});
 const dots=[...d.children];
 function go(i){n=(i+s.length)%s.length;s.forEach((a,j)=>a.classList.toggle('active',j===n));dots.forEach((a,j)=>a.classList.toggle('active',j===n));restart()}
-function restart(){clearTimeout(t);if(!run)return;f.classList.remove('playing');void f.offsetWidth;f.classList.add('playing');t=setTimeout(()=>go(n+1),3000)}
+function restart(){clearTimeout(t);if(!run)return;f.classList.remove('playing');void f.offsetWidth;f.classList.add('playing');t=setTimeout(()=>go(n+1),10000)}
 document.getElementById('next').onclick=()=>go(n+1);document.getElementById('prev').onclick=()=>go(n-1);p.onclick=()=>{run=!run;p.textContent=run?'Ⅱ':'▶';if(run)restart();else{clearTimeout(t);f.classList.remove('playing')}};
 f.addEventListener('touchstart',e=>x=e.changedTouches[0].screenX,{passive:true});f.addEventListener('touchend',e=>{let dx=e.changedTouches[0].screenX-x;if(Math.abs(dx)>45)go(n+(dx<0?1:-1))},{passive:true});restart()})();
 </script>
