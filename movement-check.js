@@ -14,20 +14,23 @@ function balanceResult(age,time){
 const band=balanceBand(age), ref=balanceRefs[band[1]][0], diff=time-ref;
 let s=diff>3?{label:'Above the reference mean',cls:'status-better'}:diff< -3?{label:'Below the reference mean',cls:'status-slower'}:{label:'Close to the reference mean',cls:'status-typical'};
 const detail=s.cls==='status-better'?'You held the position longer than the published age-group mean.':s.cls==='status-slower'?'You held the position for less time than the published age-group mean.':'Your result is close to the published age-group mean.';
-return card('Stand on one leg',time.toFixed(1),'seconds','Typical eyes-open mean for ages '+band[0]+': <strong>'+ref.toFixed(1)+' seconds</strong>.',s,'Springer et al. (2007), healthy adults. '+detail+' The study found age-related differences but no significant gender effect.');
+return {html:card('Stand on one leg',time.toFixed(1),'seconds','Typical eyes-open mean for ages '+band[0]+': <strong>'+ref.toFixed(1)+' seconds</strong>.',s,'Springer et al. (2007), healthy adults. '+detail+' The study found age-related differences but no significant gender effect.'), score:Math.min(100,Math.max(0,(time/ref)*100))};
 }
 function sts30Result(age,sex,reps){
 const band=sts30Band(age), r=sts30Refs[sex][band[0]], median=r[0], p25=r[1], p75=r[2];
 let s=reps>p75?{label:'Above the reference range',cls:'status-better'}:reps<p25?{label:'Below the reference range',cls:'status-slower'}:{label:'Within the reference range',cls:'status-typical'};
 const detail=s.cls==='status-better'?'You completed more stands than the middle 50% of the published reference group.':s.cls==='status-slower'?'You completed fewer stands than the middle 50% of the published reference group.':'Your result falls within the middle 50% of the published reference group.';
-return card('30-second sit-to-stand',String(reps),'repetitions','Reference for '+(sex==='female'?'females':'males')+' aged '+band[0]+': <strong>'+median+' repetitions</strong> median; middle 50%: <strong>'+p25+'–'+p75+'</strong>.',s,'Barros-Poblete et al. (2025), 499 healthy adults aged 18–80. Higher repetition count indicates better test performance. '+detail);
+return {html:card('30-second sit-to-stand',String(reps),'repetitions','Reference for '+(sex==='female'?'females':'males')+' aged '+band[0]+': <strong>'+median+' repetitions</strong> median; middle 50%: <strong>'+p25+'–'+p75+'</strong>.',s,'Barros-Poblete et al. (2025), 499 healthy adults aged 18–80. Higher repetition count indicates better test performance. '+detail), score:Math.min(100,Math.max(0,(reps/p75)*100))};
 }
 $('compare').addEventListener('click',()=>{
 const age=Number($('age').value), sex=$('sex').value, b=Number($('balance').value), s=Number($('sitstand').value);
 if(!age||age<18||age>80||!sex||!b||s<0||!Number.isInteger(s)){alert('Please enter an age from 18 to 80, your sex, your one-leg stand time, and your 30-second sit-to-stand repetitions.');return}
+const balance=balanceResult(age,b), sit=sts30Result(age,sex,s), score=Math.round((balance.score+sit.score)/2);
 $('results').hidden=false;
-$('resultCards').innerHTML=balanceResult(age,b)+sts30Result(age,sex,s);
-$('overallNote').textContent='Your results are a simple comparison with research reference values. They do not diagnose a condition or predict your individual health. The 30-second sit-to-stand reference values are from a healthy Chilean adult population aged 18–80 and are used here as a research guide, not a pass/fail test.';
+$('movementScore').textContent=score;
+$('scoreMessage').textContent=score>=80?'Your results are above the research reference levels used here.':score>=60?'Your results are around the research reference levels used here.':'Your results show areas where building strength, balance or confidence may be helpful.';
+$('resultCards').innerHTML=balance.html+sit.html;
+$('overallNote').textContent='Your Movement Score is a simple website comparison, calculated from these two tests. It is not a clinical score, diagnosis or prediction of your health. Research reference values vary between populations and testing conditions.';
 $('results').scrollIntoView({behavior:'smooth',block:'start'});
 });
 })();
