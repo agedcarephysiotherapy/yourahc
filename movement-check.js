@@ -12,8 +12,9 @@ function stsBand(age){return stsBands.find(b=>age>=b[1]&&age<=b[2])||null}
 function card(title,time,reference,status,detail){return '<div class="result-item"><h3>'+title+'</h3><div class="result-time">'+time+' <small>seconds</small></div><div class="result-reference">'+reference+'</div><span class="result-status '+status.cls+'">'+status.label+'</span><div class="mini-ref">'+detail+'</div></div>'}
 function balanceResult(age,time){
 const band=balanceBand(age), ref=balanceRefs[band[1]][0], diff=time-ref;
-let s=diff< -3?{label:'Faster than the reference mean',cls:'status-better'}:diff>3?{label:'Slower than the reference mean',cls:'status-slower'}:{label:'Close to the reference mean',cls:'status-typical'};
-return card('Stand on one leg',time.toFixed(1),'Typical eyes-open mean for ages '+band[0]+': <strong>'+ref.toFixed(1)+' seconds</strong>.',s,'Springer et al. (2007), healthy adults. The study found age-related differences but no significant gender effect.');
+let s=diff>3?{label:'Above the reference mean',cls:'status-better'}:diff< -3?{label:'Below the reference mean',cls:'status-slower'}:{label:'Close to the reference mean',cls:'status-typical'};
+const detail=s.cls==='status-better'?'You held the position longer than the published age-group mean.':s.cls==='status-slower'?'You held the position for less time than the published age-group mean.':'Your result is close to the published age-group mean.';
+return card('Stand on one leg',time.toFixed(1),'Typical eyes-open mean for ages '+band[0]+': <strong>'+ref.toFixed(1)+' seconds</strong>.',s,'Springer et al. (2007), healthy adults. '+detail+' The study found age-related differences but no significant gender effect.');
 }
 function stsResult(age,sex,time){
 const band=stsBand(age), r=stsRefs[sex][band[0]], median=r[0], p5=r[1];
