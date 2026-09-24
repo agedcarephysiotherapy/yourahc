@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Physio & OT Can Help | YOUR AHC</title>
+<meta name="description" content="See how physiotherapy and occupational therapy can help with movement, independence, daily activities and participation.">
+<style>
+:root{--green:#4b8f5a;--orange:#cc3300;--ink:#17352a;--soft:#f4f8f5}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;color:var(--ink)}
+body{background:linear-gradient(135deg,#f7fbf8,#e9f3ec)}
+.screen{height:100vh;width:100vw;display:flex;flex-direction:column}
+.top{height:13vh;display:flex;align-items:center;justify-content:space-between;padding:2vh 5vw;background:#fff;box-shadow:0 2px 14px #00000012}
+.logo{height:8vh;max-width:180px;object-fit:contain}.tag{font-size:2.2vh;font-weight:700;letter-spacing:.04em}
+.slides{position:relative;flex:1}.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:5vh 8vw;opacity:0;transform:translateX(4%);transition:opacity .7s ease,transform .7s ease;text-align:center}.slide.active{opacity:1;transform:none}
+.card{max-width:1050px;width:100%;background:#fff;border-radius:30px;padding:6vh 7vw;box-shadow:0 18px 55px #00000012}.eyebrow{font-size:2.4vh;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.12em;margin-bottom:2vh}
+h1{font-size:clamp(38px,7vw,92px);line-height:1.02;margin:0 0 3vh;font-weight:800}p{font-size:clamp(22px,3.2vw,42px);line-height:1.25;margin:0 auto;max-width:900px}.points{display:flex;gap:2vw;justify-content:center;flex-wrap:wrap;margin-top:4vh}.point{background:var(--soft);border-radius:18px;padding:2vh 2vw;font-size:clamp(19px,2vw,29px);font-weight:700}
+.bottom{height:10vh;display:flex;align-items:center;justify-content:center;gap:1vw}.dot{width:10px;height:10px;border-radius:50%;background:#c7d6cb}.dot.active{background:var(--orange);width:28px;border-radius:8px}.progress{position:absolute;bottom:0;left:0;height:5px;background:var(--orange);width:0;transition:none}
+@media(max-width:700px){.top{height:11vh;padding:1.5vh 4vw}.logo{height:7vh;max-width:130px}.tag{font-size:1.8vh}.slide{padding:3vh 4vw}.card{padding:5vh 5vw;border-radius:22px}h1{font-size:11vw}p{font-size:5.5vw}.bottom{height:8vh}}
+</style>
+</head>
+<body>
+<div class="screen">
+<header class="top"><img class="logo" src="/assets/your-ahc-logo.png" alt="YOUR AHC"><div class="tag">Better movement. More to life</div></header>
+<main class="slides" aria-live="polite">
+<section class="slide active"><div class="card"><div class="eyebrow">YOUR AHC</div><h1>Move better. Live more.</h1><p>Physiotherapy and occupational therapy can help people build confidence, stay active and do more of what matters.</p></div></section>
+<section class="slide"><div class="card"><div class="eyebrow">Physiotherapy</div><h1>Move with more confidence</h1><p>We help improve strength, balance, mobility, coordination and physical function.</p><div class="points"><span class="point">Strength</span><span class="point">Balance</span><span class="point">Mobility</span></div></div></section>
+<section class="slide"><div class="card"><div class="eyebrow">Occupational Therapy</div><h1>Make everyday life easier</h1><p>OT can help with daily activities, routines, equipment, home environments and practical independence.</p><div class="points"><span class="point">Daily activities</span><span class="point">Equipment</span><span class="point">Independence</span></div></div></section>
+<section class="slide"><div class="card"><div class="eyebrow">Falls & confidence</div><h1>Stay safer on your feet</h1><p>Assessment and tailored exercise can support balance, strength, transfers and confidence with movement.</p></div></section>
+<section class="slide"><div class="card"><div class="eyebrow">Pain & function</div><h1>Get back to doing things</h1><p>Therapy can help people understand movement, manage physical limitations and work towards meaningful activities.</p></div></section>
+<section class="slide"><div class="card"><div class="eyebrow">Together</div><h1>Physio + OT</h1><p>Sometimes the best support combines movement-focused therapy with practical strategies for everyday life.</p></div></section>
+<section class="slide"><div class="card"><div class="eyebrow">YOUR AHC</div><h1>What matters to YOU?</h1><p>Whether it is walking, getting out, joining in, working, playing or managing at home, therapy starts with your goals.</p></div></section>
+<section class="slide"><div class="card"><div class="eyebrow">Find out more</div><h1>Better movement. More to life.</h1><p>Talk to YOUR AHC about how physiotherapy or occupational therapy may support you.</p></div></section>
+<div class="progress" id="progress"></div>
+</main>
+<footer class="bottom" id="dots"></footer>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots'),progress=document.getElementById('progress');
+let i=0,duration=10000,start=performance.now();
+slides.forEach((_,n)=>{const d=document.createElement('span');d.className='dot'+(n===0?' active':'');dots.appendChild(d)});
+const ds=[...document.querySelectorAll('.dot')];
+function show(n){slides[i].classList.remove('active');ds[i].classList.remove('active');i=n%slides.length;slides[i].classList.add('active');ds[i].classList.add('active');start=performance.now();progress.style.transition='none';progress.style.width='0%' }
+function tick(t){const elapsed=t-start;if(elapsed>=duration)show(i+1);else{progress.style.transition='none';progress.style.width=(elapsed/duration*100)+'%'}requestAnimationFrame(tick)}
+requestAnimationFrame(tick);
+document.addEventListener('click',()=>show(i+1));
+</script>
+</body>
+</html>
