@@ -24,3 +24,12 @@ Responsive static marketing website for Your AHC, providing person-centred allie
 ## Important NDIS note
 
 Do not publish a claim that Your AHC can service NDIA-managed participants unless the business has the appropriate NDIS provider registration for the relevant services. The website currently qualifies NDIA-managed availability accordingly.
+
+## Form email notifications
+
+After a form submission succeeds, the site calls the `yahc-form-notify` Supabase Edge Function (CRM project `tlbjzkjueszjnadakqsd`, source in `supabase/functions/yahc-form-notify`). It sends via Resend from `contact@acphysio.com.au`:
+
+- an alert with the full submission to `ashutoshporwal@gmail.com` (change `NOTIFY_TO` to add recipients)
+- a short confirmation to the submitter, if they entered an email
+
+The Resend key is stored in Supabase Vault as `resend_api_key` (or set a `RESEND_API_KEY` function secret to override).
