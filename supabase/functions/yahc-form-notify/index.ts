@@ -6,7 +6,9 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const NOTIFY_TO = ["ashutoshporwal@gmail.com"];
 const FROM_NAME = "YOUR Allied Health Care";
-const FROM_EMAIL = "contact@acphysio.com.au";
+// Each provider sends from the domain authenticated in that account.
+const FROM_BREVO = "support@yourahc.com.au";
+const FROM_RESEND = "contact@acphysio.com.au";
 const REPLY_TO = "support@yourahc.com.au";
 const ALLOWED_ORIGINS = ["https://yourahc.com.au", "https://www.yourahc.com.au"];
 
@@ -62,7 +64,7 @@ async function mailer(): Promise<{ provider: string; send: Sender } | null> {
           method: "POST",
           headers: { "api-key": brevo, accept: "application/json", "Content-Type": "application/json" },
           body: JSON.stringify({
-            sender: { name: FROM_NAME, email: FROM_EMAIL },
+            sender: { name: FROM_NAME, email: FROM_BREVO },
             to: m.to.map((email) => ({ email })),
             replyTo: m.replyTo ? { email: m.replyTo } : undefined,
             subject: m.subject, htmlContent: m.html, tags: m.tags,
@@ -81,7 +83,7 @@ async function mailer(): Promise<{ provider: string; send: Sender } | null> {
           method: "POST",
           headers: { Authorization: `Bearer ${resend}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            from: `${FROM_NAME} <${FROM_EMAIL}>`, to: m.to, reply_to: m.replyTo,
+            from: `${FROM_NAME} <${FROM_RESEND}>`, to: m.to, reply_to: m.replyTo,
             subject: m.subject, html: m.html, tags: m.tags.map((value, i) => ({ name: `t${i}`, value })),
           }),
         });

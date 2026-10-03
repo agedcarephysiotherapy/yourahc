@@ -27,7 +27,7 @@ Do not publish a claim that Your AHC can service NDIA-managed participants unles
 
 ## Form email notifications
 
-After a form submission succeeds, the site calls the `yahc-form-notify` Supabase Edge Function (CRM project `tlbjzkjueszjnadakqsd`, source in `supabase/functions/yahc-form-notify`). It sends from `contact@acphysio.com.au`:
+After a form submission succeeds, the site calls the `yahc-form-notify` Supabase Edge Function (CRM project `tlbjzkjueszjnadakqsd`, source in `supabase/functions/yahc-form-notify`). It sends from `support@yourahc.com.au` via Brevo (or `contact@acphysio.com.au` via Resend, the fallback):
 
 - an alert with the full submission to `ashutoshporwal@gmail.com` (change `NOTIFY_TO` to add recipients)
 - a short confirmation to the submitter, if they entered an email
@@ -38,4 +38,4 @@ Email provider: **Brevo** if a Brevo key is configured, otherwise **Resend**. Ke
 select vault.create_secret('xkeysib-…your key…', 'brevo_api_key');
 ```
 
-The sender address must be a verified sender (or domain) in Brevo.
+`yourahc.com.au` is authenticated in Brevo, so `support@yourahc.com.au` can send.
