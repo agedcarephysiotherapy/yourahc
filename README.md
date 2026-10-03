@@ -24,3 +24,18 @@ Responsive static marketing website for Your AHC, providing person-centred allie
 ## Important NDIS note
 
 Do not publish a claim that Your AHC can service NDIA-managed participants unless the business has the appropriate NDIS provider registration for the relevant services. The website currently qualifies NDIA-managed availability accordingly.
+
+## Form email notifications
+
+After a form submission succeeds, the site calls the `yahc-form-notify` Supabase Edge Function (CRM project `tlbjzkjueszjnadakqsd`, source in `supabase/functions/yahc-form-notify`). It sends from `contact@acphysio.com.au`:
+
+- an alert with the full submission to `ashutoshporwal@gmail.com` (change `NOTIFY_TO` to add recipients)
+- a short confirmation to the submitter, if they entered an email
+
+Email provider: **Brevo** if a Brevo key is configured, otherwise **Resend**. Keys are read from function secrets (`BREVO_API_KEY` / `RESEND_API_KEY`) or Supabase Vault (`brevo_api_key` / `resend_api_key`). To switch to Brevo, run in the CRM project's SQL editor:
+
+```sql
+select vault.create_secret('xkeysib-…your key…', 'brevo_api_key');
+```
+
+The sender address must be a verified sender (or domain) in Brevo.
