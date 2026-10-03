@@ -27,9 +27,15 @@ Do not publish a claim that Your AHC can service NDIA-managed participants unles
 
 ## Form email notifications
 
-After a form submission succeeds, the site calls the `yahc-form-notify` Supabase Edge Function (CRM project `tlbjzkjueszjnadakqsd`, source in `supabase/functions/yahc-form-notify`). It sends via Resend from `contact@acphysio.com.au`:
+After a form submission succeeds, the site calls the `yahc-form-notify` Supabase Edge Function (CRM project `tlbjzkjueszjnadakqsd`, source in `supabase/functions/yahc-form-notify`). It sends from `contact@acphysio.com.au`:
 
 - an alert with the full submission to `ashutoshporwal@gmail.com` (change `NOTIFY_TO` to add recipients)
 - a short confirmation to the submitter, if they entered an email
 
-The Resend key is stored in Supabase Vault as `resend_api_key` (or set a `RESEND_API_KEY` function secret to override).
+Email provider: **Brevo** if a Brevo key is configured, otherwise **Resend**. Keys are read from function secrets (`BREVO_API_KEY` / `RESEND_API_KEY`) or Supabase Vault (`brevo_api_key` / `resend_api_key`). To switch to Brevo, run in the CRM project's SQL editor:
+
+```sql
+select vault.create_secret('xkeysib-…your key…', 'brevo_api_key');
+```
+
+The sender address must be a verified sender (or domain) in Brevo.
