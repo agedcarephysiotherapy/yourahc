@@ -97,6 +97,7 @@ button,input,textarea{font:inherit}
 .request-form .consent input{width:18px!important;height:18px!important;min-height:18px!important;flex:0 0 18px;margin:1px 0 0!important;padding:0!important;accent-color:var(--teal)}
 .request-form .submit-button{grid-column:1/-1;min-height:50px;padding:13px 22px!important;width:100%;font-size:14px}
 .request-form .submit-button span{font-size:18px;line-height:1}
+.request-form .submit-button{background:var(--teal);color:#fff}.request-form .submit-button:hover,.request-form .submit-button:focus-visible{background:var(--teal-dark);color:#fff}.request-form .submit-button:disabled{opacity:.7;cursor:wait;transform:none}
 .request-form .form-status{grid-column:1/-1;margin-top:-5px}
 @media(max-width:900px){.request-form{padding:30px!important}.form-heading{align-items:flex-start;gap:5px;flex-direction:column}}
 @media(max-width:600px){.request-form{padding:24px 18px!important;gap:16px!important}.form-heading{padding-bottom:8px}.request-form .field-full{grid-column:1}.request-form input,.request-form select,.request-form textarea{min-height:50px;font-size:16px!important}.request-form textarea{min-height:120px}.request-form .consent{font-size:12px}.request-form .submit-button{min-height:52px}}
