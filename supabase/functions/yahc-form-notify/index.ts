@@ -6,9 +6,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const NOTIFY_TO = ["ashutoshporwal@gmail.com"];
 const FROM_NAME = "YOUR Allied Health Care";
-// Each provider sends from the domain authenticated in that account.
-const FROM_BREVO = "support@yourahc.com.au";
-const FROM_RESEND = "contact@acphysio.com.au";
+const FROM_EMAIL = "support@yourahc.com.au";
 const REPLY_TO = "support@yourahc.com.au";
 const ALLOWED_ORIGINS = ["https://yourahc.com.au", "https://www.yourahc.com.au"];
 
@@ -34,73 +32,22 @@ function cors(origin: string | null) {
   };
 }
 
-// Brevo is used when a Brevo key is configured; otherwise Resend.
-// Keys come from function secrets (BREVO_API_KEY / RESEND_API_KEY) or Vault (brevo_api_key / resend_api_key).
-async function secret(envName: string, vaultName: string): Promise<string | null> {
-  const fromEnv = Deno.env.get(envName);
-  if (fromEnv) return fromEnv;
-  const url = Deno.env.get("SUPABASE_URL"), service = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-  if (!url || !service) return null;
-  const r = await fetch(`${url}/rest/v1/rpc/get_form_notify_secret`, {
-    method: "POST",
-    headers: { apikey: service, Authorization: `Bearer ${service}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ secret_name: vaultName }),
-  });
-  if (!r.ok) return null;
-  const v = await r.json();
-  return typeof v === "string" && v ? v : null;
-}
-
 type Mail = { to: string[]; subject: string; html: string; replyTo?: string; tags: string[] };
-type Sender = (m: Mail) => Promise<string | undefined>;
-type Events = (ids: string[]) => Promise<unknown>;
 
-async function mailer(): Promise<{ provider: string; send: Sender; events?: Events } | null> {
-  const brevo = await secret("BREVO_API_KEY", "brevo_api_key");
-  if (brevo) {
-    return {
-      provider: "brevo",
-      send: async (m) => {
-        const r = await fetch("https://api.brevo.com/v3/smtp/email", {
-          method: "POST",
-          headers: { "api-key": brevo, accept: "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({
-            sender: { name: FROM_NAME, email: FROM_BREVO },
-            to: m.to.map((email) => ({ email })),
-            replyTo: m.replyTo ? { email: m.replyTo } : undefined,
-            subject: m.subject, htmlContent: m.html, tags: m.tags,
-          }),
-        });
-        if (!r.ok) throw new Error(`Brevo ${r.status}: ${await r.text()}`);
-        return (await r.json().catch(() => ({})))?.messageId;
-      },
-      // Brevo's delivery record for each message (delivered, blocked, bounced… and why).
-      events: async (ids) => Promise.all(ids.map(async (id) => {
-        const r = await fetch(`https://api.brevo.com/v3/smtp/statistics/events?limit=20&messageId=${encodeURIComponent(id)}`,
-          { headers: { "api-key": brevo, accept: "application/json" } });
-        return { id, status: r.status, events: (await r.json().catch(() => ({})))?.events ?? [] };
-      })),
-    };
-  }
-  const resend = await secret("RESEND_API_KEY", "resend_api_key");
-  if (resend) {
-    return {
-      provider: "resend",
-      send: async (m) => {
-        const r = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: { Authorization: `Bearer ${resend}`, "Content-Type": "application/json" },
-          body: JSON.stringify({
-            from: `${FROM_NAME} <${FROM_RESEND}>`, to: m.to, reply_to: m.replyTo,
-            subject: m.subject, html: m.html, tags: m.tags.map((value, i) => ({ name: `t${i}`, value })),
-          }),
-        });
-        if (!r.ok) throw new Error(`Resend ${r.status}: ${await r.text()}`);
-        return (await r.json().catch(() => ({})))?.id;
-      },
-    };
-  }
-  return null;
+// Sends through Brevo using the BREVO_API_KEY Edge Function secret. Returns Brevo's message ID.
+async function sendBrevo(key: string, m: Mail): Promise<string | undefined> {
+  const r = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: { "api-key": key, accept: "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify({
+      sender: { name: FROM_NAME, email: FROM_EMAIL },
+      to: m.to.map((email) => ({ email })),
+      replyTo: m.replyTo ? { email: m.replyTo } : undefined,
+      subject: m.subject, htmlContent: m.html, tags: m.tags,
+    }),
+  });
+  if (!r.ok) throw new Error(`Brevo ${r.status}: ${await r.text()}`);
+  return (await r.json().catch(() => ({})))?.messageId;
 }
 
 const shell = (title: string, body: string) =>
@@ -154,18 +101,18 @@ Deno.serve(async (req) => {
     return reply(400, { ok: false, message: "Unknown form." });
   }
 
-  const mail = await mailer();
-  if (!mail) { console.error("No email provider key configured"); return reply(500, { ok: false, message: "Notifications not configured." }); }
+  const key = Deno.env.get("BREVO_API_KEY");
+  if (!key) { console.error("BREVO_API_KEY is not set"); return reply(500, { ok: false, message: "Notifications not configured." }); }
 
   const submitted = new Date().toLocaleString("en-AU", { timeZone: "Australia/Melbourne" });
   const results = await Promise.allSettled([
-    mail.send({
+    sendBrevo(key, {
       to: NOTIFY_TO, subject, replyTo: email || undefined,
       html: shell(heading, table([...rows, ["Submitted", submitted]])),
       tags: ["yourahc-website", form],
     }),
     // Deliberately excludes the free-text message so this endpoint can't be used to relay arbitrary content.
-    email ? mail.send({
+    email ? sendBrevo(key, {
       to: [email], replyTo: REPLY_TO,
       subject: "We've received your request – YOUR Allied Health Care",
       html: shell(`Thank you, ${esc(name.split(/\s+/)[0])}`,
@@ -174,13 +121,9 @@ Deno.serve(async (req) => {
     }) : Promise.resolve(undefined),
   ]);
   const messageIds = results.flatMap((r) => r.status === "fulfilled" && r.value ? [r.value] : []);
-  console.log(`Sent via ${mail.provider}: ${messageIds.join(", ") || "no message ids"}`);
+  console.log(`Sent via Brevo: ${messageIds.join(", ") || "no message ids"}`);
   const failed = results.filter((r): r is PromiseRejectedResult => r.status === "rejected");
   failed.forEach((f) => console.error(f.reason));
   if (results[0].status === "rejected") return reply(502, { ok: false, message: "Notification failed." });
-  // ?debug=1 waits briefly and includes the provider's delivery events, for troubleshooting.
-  const debug = new URL(req.url).searchParams.get("debug") === "1" && mail.events
-    ? (await new Promise((r) => setTimeout(r, 8000)), await mail.events(messageIds))
-    : undefined;
-  return reply(200, { ok: true, provider: mail.provider, confirmationSent: Boolean(email) && results[1].status === "fulfilled", messageIds, debug });
+  return reply(200, { ok: true, confirmationSent: Boolean(email) && results[1].status === "fulfilled", messageIds });
 });
