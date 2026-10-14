@@ -52,9 +52,10 @@ async function secret(envName: string, vaultName: string): Promise<string | null
 }
 
 type Mail = { to: string[]; subject: string; html: string; replyTo?: string; tags: string[] };
-type Sender = (m: Mail) => Promise<void>;
+type Sender = (m: Mail) => Promise<string | undefined>;
+type Events = (ids: string[]) => Promise<unknown>;
 
-async function mailer(): Promise<{ provider: string; send: Sender } | null> {
+async function mailer(): Promise<{ provider: string; send: Sender; events?: Events } | null> {
   const brevo = await secret("BREVO_API_KEY", "brevo_api_key");
   if (brevo) {
     return {
@@ -71,7 +72,14 @@ async function mailer(): Promise<{ provider: string; send: Sender } | null> {
           }),
         });
         if (!r.ok) throw new Error(`Brevo ${r.status}: ${await r.text()}`);
+        return (await r.json().catch(() => ({})))?.messageId;
       },
+      // Brevo's delivery record for each message (delivered, blocked, bounced… and why).
+      events: async (ids) => Promise.all(ids.map(async (id) => {
+        const r = await fetch(`https://api.brevo.com/v3/smtp/statistics/events?limit=20&messageId=${encodeURIComponent(id)}`,
+          { headers: { "api-key": brevo, accept: "application/json" } });
+        return { id, status: r.status, events: (await r.json().catch(() => ({})))?.events ?? [] };
+      })),
     };
   }
   const resend = await secret("RESEND_API_KEY", "resend_api_key");
@@ -88,6 +96,7 @@ async function mailer(): Promise<{ provider: string; send: Sender } | null> {
           }),
         });
         if (!r.ok) throw new Error(`Resend ${r.status}: ${await r.text()}`);
+        return (await r.json().catch(() => ({})))?.id;
       },
     };
   }
@@ -117,7 +126,7 @@ Deno.serve(async (req) => {
 
   let d: Record<string, unknown>;
   try { d = await req.json(); } catch { return reply(400, { ok: false, message: "Invalid request." }); }
-  if (clean(d.website)) return reply(200, { ok: true });
+  if (clean(d.website)) { console.log("Honeypot filled; skipped"); return reply(200, { ok: true, skipped: true }); }
 
   const form = clean(d.form, 40);
   const name = clean(d.name, 120), email = clean(d.email, 254), phone = clean(d.phone, 60), message = clean(d.message, 5000);
@@ -162,10 +171,16 @@ Deno.serve(async (req) => {
       html: shell(`Thank you, ${esc(name.split(/\s+/)[0])}`,
         `<p>We've received ${esc(what)}. A member of our team will be in touch shortly on the phone number you provided.</p><p>If you need to reach us sooner, call <a href="tel:0450832833">0450 832 833</a> or reply to this email.</p><p>Kind regards,<br>YOUR Allied Health Care</p>`),
       tags: ["yourahc-website", `${form}-confirmation`],
-    }) : Promise.resolve(),
+    }) : Promise.resolve(undefined),
   ]);
+  const messageIds = results.flatMap((r) => r.status === "fulfilled" && r.value ? [r.value] : []);
+  console.log(`Sent via ${mail.provider}: ${messageIds.join(", ") || "no message ids"}`);
   const failed = results.filter((r): r is PromiseRejectedResult => r.status === "rejected");
   failed.forEach((f) => console.error(f.reason));
   if (results[0].status === "rejected") return reply(502, { ok: false, message: "Notification failed." });
-  return reply(200, { ok: true, provider: mail.provider, confirmationSent: Boolean(email) && results[1].status === "fulfilled" });
+  // ?debug=1 waits briefly and includes the provider's delivery events, for troubleshooting.
+  const debug = new URL(req.url).searchParams.get("debug") === "1" && mail.events
+    ? (await new Promise((r) => setTimeout(r, 8000)), await mail.events(messageIds))
+    : undefined;
+  return reply(200, { ok: true, provider: mail.provider, confirmationSent: Boolean(email) && results[1].status === "fulfilled", messageIds, debug });
 });
