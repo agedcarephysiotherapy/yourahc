@@ -27,15 +27,9 @@ Do not publish a claim that Your AHC can service NDIA-managed participants unles
 
 ## Form email notifications
 
-After a form submission succeeds, the site calls the `yahc-form-notify` Supabase Edge Function (CRM project `tlbjzkjueszjnadakqsd`, source in `supabase/functions/yahc-form-notify`). It sends from `support@yourahc.com.au` via Brevo (or `contact@acphysio.com.au` via Resend, the fallback):
+After a form submission succeeds, the site calls the `yahc-form-notify` Supabase Edge Function in the same project that stores submissions (`yrevkjrichztuceguhaq`). Source: `supabase/functions/yahc-form-notify/index.ts`. It sends:
 
 - an alert with the full submission to `ashutoshporwal@gmail.com` (change `NOTIFY_TO` to add recipients)
 - a short confirmation to the submitter, if they entered an email
 
-Email provider: **Brevo** if a Brevo key is configured, otherwise **Resend**. Keys are read from function secrets (`BREVO_API_KEY` / `RESEND_API_KEY`) or Supabase Vault (`brevo_api_key` / `resend_api_key`). To switch to Brevo, run in the CRM project's SQL editor:
-
-```sql
-select vault.create_secret('xkeysib-…your key…', 'brevo_api_key');
-```
-
-`yourahc.com.au` is authenticated in Brevo, so `support@yourahc.com.au` can send.
+Email goes through Brevo from `support@yourahc.com.au`, using the `BREVO_API_KEY` Edge Function secret. JWT verification is off for this function, as for the other public form endpoints. Brevo's "Authorised IPs" restriction must stay off, because Supabase has no fixed outbound IP.
